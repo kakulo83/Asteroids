@@ -1,0 +1,302 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8A42A0C315E6C5E30078D033 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C215E6C5E30078D033 /* UIKit.framework */; };
+		8A42A0C515E6C5E30078D033 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C415E6C5E30078D033 /* Foundation.framework */; };
+		8A42A0C715E6C5E30078D033 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C615E6C5E30078D033 /* CoreGraphics.framework */; };
+		8A42A0CD15E6C5E30078D033 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0CB15E6C5E30078D033 /* InfoPlist.strings */; };
+		8A42A0CF15E6C5E30078D033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A0CE15E6C5E30078D033 /* main.m */; };
+		8A42A0D315E6C5E30078D033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A0D215E6C5E30078D033 /* AppDelegate.m */; };
+		8A42A0DA15E6C6130078D033 /* astroid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0D915E6C6130078D033 /* astroid.mp4 */; };
+		8A42A0DC15E6C61B0078D033 /* ship.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0DB15E6C61B0078D033 /* ship.png */; };
+		8A42A0DE15E6C7D90078D033 /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0DD15E6C7D90078D033 /* space.png */; };
+		8A42A0E015E6C8BD0078D033 /* laser.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0DF15E6C8BD0078D033 /* laser.mp3 */; };
+		8A42A0E215E6C8EC0078D033 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0E115E6C8EC0078D033 /* AVFoundation.framework */; };
+		8A42A0E415E6C8F30078D033 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0E315E6C8F30078D033 /* QuartzCore.framework */; };
+		8A42A0E815E6C96E0078D033 /* MainControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A0E615E6C96E0078D033 /* MainControllerViewController.m */; };
+		8A42A0E915E6C96E0078D033 /* MainControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0E715E6C96E0078D033 /* MainControllerViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8A42A0BE15E6C5E30078D033 /* Astroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Astroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A42A0C215E6C5E30078D033 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8A42A0C415E6C5E30078D033 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8A42A0C615E6C5E30078D033 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8A42A0CA15E6C5E30078D033 /* Astroids-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Astroids-Info.plist"; sourceTree = "<group>"; };
+		8A42A0CC15E6C5E30078D033 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8A42A0CE15E6C5E30078D033 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8A42A0D015E6C5E30078D033 /* Astroids-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Astroids-Prefix.pch"; sourceTree = "<group>"; };
+		8A42A0D115E6C5E30078D033 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8A42A0D215E6C5E30078D033 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8A42A0D915E6C6130078D033 /* astroid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = astroid.mp4; sourceTree = "<group>"; };
+		8A42A0DB15E6C61B0078D033 /* ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship.png; sourceTree = "<group>"; };
+		8A42A0DD15E6C7D90078D033 /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space.png; sourceTree = "<group>"; };
+		8A42A0DF15E6C8BD0078D033 /* laser.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = laser.mp3; sourceTree = "<group>"; };
+		8A42A0E115E6C8EC0078D033 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8A42A0E315E6C8F30078D033 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8A42A0E515E6C96E0078D033 /* MainControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainControllerViewController.h; sourceTree = "<group>"; };
+		8A42A0E615E6C96E0078D033 /* MainControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainControllerViewController.m; sourceTree = "<group>"; };
+		8A42A0E715E6C96E0078D033 /* MainControllerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainControllerViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8A42A0BB15E6C5E30078D033 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A42A0E415E6C8F30078D033 /* QuartzCore.framework in Frameworks */,
+				8A42A0E215E6C8EC0078D033 /* AVFoundation.framework in Frameworks */,
+				8A42A0C315E6C5E30078D033 /* UIKit.framework in Frameworks */,
+				8A42A0C515E6C5E30078D033 /* Foundation.framework in Frameworks */,
+				8A42A0C715E6C5E30078D033 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8A42A0B315E6C5E30078D033 = {
+			isa = PBXGroup;
+			children = (
+				8A42A0C815E6C5E30078D033 /* Astroids */,
+				8A42A0C115E6C5E30078D033 /* Frameworks */,
+				8A42A0BF15E6C5E30078D033 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8A42A0BF15E6C5E30078D033 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8A42A0BE15E6C5E30078D033 /* Astroids.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8A42A0C115E6C5E30078D033 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A42A0E315E6C8F30078D033 /* QuartzCore.framework */,
+				8A42A0E115E6C8EC0078D033 /* AVFoundation.framework */,
+				8A42A0C215E6C5E30078D033 /* UIKit.framework */,
+				8A42A0C415E6C5E30078D033 /* Foundation.framework */,
+				8A42A0C615E6C5E30078D033 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8A42A0C815E6C5E30078D033 /* Astroids */ = {
+			isa = PBXGroup;
+			children = (
+				8A42A0DF15E6C8BD0078D033 /* laser.mp3 */,
+				8A42A0DD15E6C7D90078D033 /* space.png */,
+				8A42A0DB15E6C61B0078D033 /* ship.png */,
+				8A42A0D915E6C6130078D033 /* astroid.mp4 */,
+				8A42A0D115E6C5E30078D033 /* AppDelegate.h */,
+				8A42A0D215E6C5E30078D033 /* AppDelegate.m */,
+				8A42A0E515E6C96E0078D033 /* MainControllerViewController.h */,
+				8A42A0E615E6C96E0078D033 /* MainControllerViewController.m */,
+				8A42A0E715E6C96E0078D033 /* MainControllerViewController.xib */,
+				8A42A0C915E6C5E30078D033 /* Supporting Files */,
+			);
+			path = Astroids;
+			sourceTree = "<group>";
+		};
+		8A42A0C915E6C5E30078D033 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8A42A0CA15E6C5E30078D033 /* Astroids-Info.plist */,
+				8A42A0CB15E6C5E30078D033 /* InfoPlist.strings */,
+				8A42A0CE15E6C5E30078D033 /* main.m */,
+				8A42A0D015E6C5E30078D033 /* Astroids-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8A42A0BD15E6C5E30078D033 /* Astroids */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A42A0D615E6C5E30078D033 /* Build configuration list for PBXNativeTarget "Astroids" */;
+			buildPhases = (
+				8A42A0BA15E6C5E30078D033 /* Sources */,
+				8A42A0BB15E6C5E30078D033 /* Frameworks */,
+				8A42A0BC15E6C5E30078D033 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Astroids;
+			productName = Astroids;
+			productReference = 8A42A0BE15E6C5E30078D033 /* Astroids.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8A42A0B515E6C5E30078D033 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Robert Carter";
+			};
+			buildConfigurationList = 8A42A0B815E6C5E30078D033 /* Build configuration list for PBXProject "Astroids" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8A42A0B315E6C5E30078D033;
+			productRefGroup = 8A42A0BF15E6C5E30078D033 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8A42A0BD15E6C5E30078D033 /* Astroids */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8A42A0BC15E6C5E30078D033 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A42A0CD15E6C5E30078D033 /* InfoPlist.strings in Resources */,
+				8A42A0DA15E6C6130078D033 /* astroid.mp4 in Resources */,
+				8A42A0DC15E6C61B0078D033 /* ship.png in Resources */,
+				8A42A0DE15E6C7D90078D033 /* space.png in Resources */,
+				8A42A0E015E6C8BD0078D033 /* laser.mp3 in Resources */,
+				8A42A0E915E6C96E0078D033 /* MainControllerViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8A42A0BA15E6C5E30078D033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A42A0CF15E6C5E30078D033 /* main.m in Sources */,
+				8A42A0D315E6C5E30078D033 /* AppDelegate.m in Sources */,
+				8A42A0E815E6C96E0078D033 /* MainControllerViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8A42A0CB15E6C5E30078D033 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A42A0CC15E6C5E30078D033 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8A42A0D415E6C5E30078D033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8A42A0D515E6C5E30078D033 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8A42A0D715E6C5E30078D033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Astroids/Astroids-Prefix.pch";
+				INFOPLIST_FILE = "Astroids/Astroids-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8A42A0D815E6C5E30078D033 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Astroids/Astroids-Prefix.pch";
+				INFOPLIST_FILE = "Astroids/Astroids-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8A42A0B815E6C5E30078D033 /* Build configuration list for PBXProject "Astroids" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A42A0D415E6C5E30078D033 /* Debug */,
+				8A42A0D515E6C5E30078D033 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A42A0D615E6C5E30078D033 /* Build configuration list for PBXNativeTarget "Astroids" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A42A0D715E6C5E30078D033 /* Debug */,
+				8A42A0D815E6C5E30078D033 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8A42A0B515E6C5E30078D033 /* Project object */;
+}
