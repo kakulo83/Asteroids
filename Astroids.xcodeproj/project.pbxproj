@@ -15,12 +15,19 @@
 		8A42A0D315E6C5E30078D033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A0D215E6C5E30078D033 /* AppDelegate.m */; };
 		8A42A0DA15E6C6130078D033 /* astroid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0D915E6C6130078D033 /* astroid.mp4 */; };
 		8A42A0DC15E6C61B0078D033 /* ship.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0DB15E6C61B0078D033 /* ship.png */; };
-		8A42A0DE15E6C7D90078D033 /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0DD15E6C7D90078D033 /* space.png */; };
 		8A42A0E015E6C8BD0078D033 /* laser.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0DF15E6C8BD0078D033 /* laser.mp3 */; };
 		8A42A0E215E6C8EC0078D033 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0E115E6C8EC0078D033 /* AVFoundation.framework */; };
 		8A42A0E415E6C8F30078D033 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0E315E6C8F30078D033 /* QuartzCore.framework */; };
-		8A42A0E815E6C96E0078D033 /* MainControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A0E615E6C96E0078D033 /* MainControllerViewController.m */; };
-		8A42A0E915E6C96E0078D033 /* MainControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0E715E6C96E0078D033 /* MainControllerViewController.xib */; };
+		8A42A0ED15E6CB170078D033 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A0EB15E6CB170078D033 /* MainViewController.m */; };
+		8A42A0EE15E6CB170078D033 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0EC15E6CB170078D033 /* MainViewController.xib */; };
+		8A42A0F015E6CE620078D033 /* laser.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0EF15E6CE620078D033 /* laser.png */; };
+		8A42A0F715E6D2840078D033 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A0F615E6D2840078D033 /* MainView.m */; };
+		8A42A0FE15E6D4900078D033 /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A0FD15E6D4900078D033 /* Ship.m */; };
+		8A42A10015E6F7540078D033 /* laser.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A0FF15E6F7540078D033 /* laser.mp4 */; };
+		8A42A10315E706CE0078D033 /* LaserBlast.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A10215E706CE0078D033 /* LaserBlast.m */; };
+		8A42A10615E70A180078D033 /* Asteroid.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A10515E70A180078D033 /* Asteroid.m */; };
+		8A42A10815E70A5D0078D033 /* asteroid.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A10715E70A5D0078D033 /* asteroid.png */; };
+		8A58836615E75F0E004345AA /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A58836515E75F0E004345AA /* space.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,13 +43,24 @@
 		8A42A0D215E6C5E30078D033 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8A42A0D915E6C6130078D033 /* astroid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = astroid.mp4; sourceTree = "<group>"; };
 		8A42A0DB15E6C61B0078D033 /* ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship.png; sourceTree = "<group>"; };
-		8A42A0DD15E6C7D90078D033 /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space.png; sourceTree = "<group>"; };
 		8A42A0DF15E6C8BD0078D033 /* laser.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = laser.mp3; sourceTree = "<group>"; };
 		8A42A0E115E6C8EC0078D033 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8A42A0E315E6C8F30078D033 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		8A42A0E515E6C96E0078D033 /* MainControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainControllerViewController.h; sourceTree = "<group>"; };
-		8A42A0E615E6C96E0078D033 /* MainControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainControllerViewController.m; sourceTree = "<group>"; };
-		8A42A0E715E6C96E0078D033 /* MainControllerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainControllerViewController.xib; sourceTree = "<group>"; };
+		8A42A0EA15E6CB170078D033 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ../MainViewController.h; sourceTree = "<group>"; };
+		8A42A0EB15E6CB170078D033 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ../MainViewController.m; sourceTree = "<group>"; };
+		8A42A0EC15E6CB170078D033 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = ../MainViewController.xib; sourceTree = "<group>"; };
+		8A42A0EF15E6CE620078D033 /* laser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laser.png; sourceTree = "<group>"; };
+		8A42A0F515E6D2840078D033 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
+		8A42A0F615E6D2840078D033 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
+		8A42A0FC15E6D4900078D033 /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
+		8A42A0FD15E6D4900078D033 /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
+		8A42A0FF15E6F7540078D033 /* laser.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = laser.mp4; sourceTree = "<group>"; };
+		8A42A10115E706CE0078D033 /* LaserBlast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaserBlast.h; sourceTree = "<group>"; };
+		8A42A10215E706CE0078D033 /* LaserBlast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaserBlast.m; sourceTree = "<group>"; };
+		8A42A10415E70A180078D033 /* Asteroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asteroid.h; sourceTree = "<group>"; };
+		8A42A10515E70A180078D033 /* Asteroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Asteroid.m; sourceTree = "<group>"; };
+		8A42A10715E70A5D0078D033 /* asteroid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asteroid.png; sourceTree = "<group>"; };
+		8A58836515E75F0E004345AA /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,15 +111,26 @@
 		8A42A0C815E6C5E30078D033 /* Astroids */ = {
 			isa = PBXGroup;
 			children = (
+				8A58836515E75F0E004345AA /* space.png */,
+				8A42A10715E70A5D0078D033 /* asteroid.png */,
+				8A42A0FF15E6F7540078D033 /* laser.mp4 */,
+				8A42A0EA15E6CB170078D033 /* MainViewController.h */,
+				8A42A0EB15E6CB170078D033 /* MainViewController.m */,
+				8A42A10115E706CE0078D033 /* LaserBlast.h */,
+				8A42A10215E706CE0078D033 /* LaserBlast.m */,
+				8A42A0F515E6D2840078D033 /* MainView.h */,
+				8A42A0F615E6D2840078D033 /* MainView.m */,
+				8A42A10415E70A180078D033 /* Asteroid.h */,
+				8A42A10515E70A180078D033 /* Asteroid.m */,
+				8A42A0FC15E6D4900078D033 /* Ship.h */,
+				8A42A0FD15E6D4900078D033 /* Ship.m */,
+				8A42A0EC15E6CB170078D033 /* MainViewController.xib */,
 				8A42A0DF15E6C8BD0078D033 /* laser.mp3 */,
-				8A42A0DD15E6C7D90078D033 /* space.png */,
+				8A42A0EF15E6CE620078D033 /* laser.png */,
 				8A42A0DB15E6C61B0078D033 /* ship.png */,
 				8A42A0D915E6C6130078D033 /* astroid.mp4 */,
 				8A42A0D115E6C5E30078D033 /* AppDelegate.h */,
 				8A42A0D215E6C5E30078D033 /* AppDelegate.m */,
-				8A42A0E515E6C96E0078D033 /* MainControllerViewController.h */,
-				8A42A0E615E6C96E0078D033 /* MainControllerViewController.m */,
-				8A42A0E715E6C96E0078D033 /* MainControllerViewController.xib */,
 				8A42A0C915E6C5E30078D033 /* Supporting Files */,
 			);
 			path = Astroids;
@@ -172,9 +201,12 @@
 				8A42A0CD15E6C5E30078D033 /* InfoPlist.strings in Resources */,
 				8A42A0DA15E6C6130078D033 /* astroid.mp4 in Resources */,
 				8A42A0DC15E6C61B0078D033 /* ship.png in Resources */,
-				8A42A0DE15E6C7D90078D033 /* space.png in Resources */,
 				8A42A0E015E6C8BD0078D033 /* laser.mp3 in Resources */,
-				8A42A0E915E6C96E0078D033 /* MainControllerViewController.xib in Resources */,
+				8A42A0EE15E6CB170078D033 /* MainViewController.xib in Resources */,
+				8A42A0F015E6CE620078D033 /* laser.png in Resources */,
+				8A42A10015E6F7540078D033 /* laser.mp4 in Resources */,
+				8A42A10815E70A5D0078D033 /* asteroid.png in Resources */,
+				8A58836615E75F0E004345AA /* space.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +219,11 @@
 			files = (
 				8A42A0CF15E6C5E30078D033 /* main.m in Sources */,
 				8A42A0D315E6C5E30078D033 /* AppDelegate.m in Sources */,
-				8A42A0E815E6C96E0078D033 /* MainControllerViewController.m in Sources */,
+				8A42A0ED15E6CB170078D033 /* MainViewController.m in Sources */,
+				8A42A0F715E6D2840078D033 /* MainView.m in Sources */,
+				8A42A0FE15E6D4900078D033 /* Ship.m in Sources */,
+				8A42A10315E706CE0078D033 /* LaserBlast.m in Sources */,
+				8A42A10615E70A180078D033 /* Asteroid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +331,7 @@
 				8A42A0D815E6C5E30078D033 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
