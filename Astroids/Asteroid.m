@@ -23,7 +23,6 @@
     self = [super init];
     
     if (self) {
-
         self.bounds = CGRectMake(0.0, 0.0, 70.0, 70.0);
         self.position = position;
         self.endPosition = endPosition;
@@ -88,6 +87,5 @@
 {
     self.animation.delegate = nil;
 }
-
 
 @end

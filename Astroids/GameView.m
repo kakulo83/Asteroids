@@ -90,7 +90,7 @@
     
     
     // Initialize some tie fighters
-    EnemyShip *tieFighter1 = [[EnemyShip alloc] initWithPosition:CGPointMake(150.0, 150.0) imageFile:@"tieFighter.png"];
+    EnemyShip *tieFighter1 = [[EnemyShip alloc] initWithPosition:CGPointMake(15.0, 50.0) imageFile:@"tieFighter.png"];
     tieFighter1.allLaserBlasts = self.allLaserBlasts;
     [self.layer addSublayer:tieFighter1];
     [tieFighter1 animate];

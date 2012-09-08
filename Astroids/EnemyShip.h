@@ -14,4 +14,5 @@
 @property (weak, nonatomic) NSMutableArray* allLaserBlasts;
 -(id) initWithPosition:(CGPoint)position imageFile:(NSString*)file;
 -(void) animate;
+- (void)unsetAnimationDelegate;
 @end

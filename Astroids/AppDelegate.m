@@ -21,12 +21,11 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     // Create the WelcomeViewController
-    //WelcomeViewController *welcomeController = [WelcomeViewController new];
-    //self.window.rootViewController = welcomeController;
+    WelcomeViewController *welcomeController = [WelcomeViewController new];
+    self.window.rootViewController = welcomeController;
     
-
-    GameViewController *gameController = [GameViewController new];
-    self.window.rootViewController = gameController;
+//    GameViewController *gameController = [GameViewController new];
+//    self.window.rootViewController = gameController;
         
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
