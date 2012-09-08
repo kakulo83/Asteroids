@@ -9,6 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface LaserBlast : CALayer
--(id) initWithPosition:(CGPoint)position;
+@property (weak,nonatomic) NSMutableArray *allLaserBlasts;
+-(id) initWithPosition:(CGPoint)position AndLaserArrayContainer:(NSMutableArray*) allLaserBlasts;
 - (void)animate;
+- (void)unsetAnimationDelegate;
 @end

@@ -17,17 +17,17 @@
 
 @implementation Ship
 
-- (id)initWithPosition:(CGPoint)position
+-(id) initWithPosition:(CGPoint)position andImageFile:(NSString*)file
 {
     self = [super init];
-    
-    self.bounds = CGRectMake(0.0, 0.0, 70.0, 70.0);
-    self.position = position;
-    self.zPosition = 1000;
-    
+        
     if (self) {
-        NSString *fileName = [NSString stringWithFormat:@"ship.png"];
-        UIImage *shipImage = [UIImage imageNamed:fileName];
+        UIImage *shipImage = [UIImage imageNamed:file];
+        CGFloat width = shipImage.size.width;
+        CGFloat height= shipImage.size.height;
+        self.bounds = CGRectMake(0.0, 0.0, width, height);
+        self.position = position;
+        self.zPosition = 1000;
         self.contents = (__bridge id)([shipImage CGImage]);
     }
     return self;

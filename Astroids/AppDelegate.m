@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "MainViewController.h"
+#import "WelcomeViewController.h"
+#import "GameViewController.h"
 
 @implementation AppDelegate
 
@@ -16,9 +17,17 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
-    MainViewController *mainController = [MainViewController new];
-    self.window.rootViewController = mainController;
+    //  Hide the status bar at the top of all view
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
+    // Create the WelcomeViewController
+    //WelcomeViewController *welcomeController = [WelcomeViewController new];
+    //self.window.rootViewController = welcomeController;
+    
+
+    GameViewController *gameController = [GameViewController new];
+    self.window.rootViewController = gameController;
+        
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

@@ -10,5 +10,5 @@
 
 @interface Ship : CALayer
 @property int hitPoints;
--(id) initWithPosition:(CGPoint)position;
+-(id) initWithPosition:(CGPoint)position andImageFile:(NSString*)file;
 @end

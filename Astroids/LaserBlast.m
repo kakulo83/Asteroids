@@ -13,15 +13,17 @@
 {
     
 }
+@property CABasicAnimation *animation;
 @end
 
 @implementation LaserBlast
 
-- (id)initWithPosition:(CGPoint)position
+- (id)initWithPosition:(CGPoint)position AndLaserArrayContainer:(NSMutableArray*) allLaserBlasts
 {
     self = [super init];
         
     if (self) {
+        self.allLaserBlasts = allLaserBlasts;
         self.bounds = CGRectMake(0.0, 0.0, 70.0, 70.0);
         self.frame = CGRectMake(0,0, 20, 100);
         self.position = CGPointMake(position.x, position.y - 50);   // The 50 offset is to make sure the laser doesn't start from behind the ship, but seems to appear from the ship.
@@ -42,19 +44,34 @@
     CGPoint laserEndPoint = CGPointMake(self.position.x, -50);
     
     // Basically the same animation procedures as the space background scrolling, except only called once
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    animation.fromValue = [NSValue valueWithCGPoint:self.position];
-    animation.toValue = [NSValue valueWithCGPoint:laserEndPoint];
-    animation.repeatCount = 1;
-    animation.duration = 0.5;
-    animation.delegate = self;  // the handler will be   " - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag "
-    [self addAnimation:animation forKey:@"position"];
+    self.animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    self.animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    self.animation.fromValue = [NSValue valueWithCGPoint:self.position];
+    self.animation.toValue = [NSValue valueWithCGPoint:laserEndPoint];
+    self.animation.repeatCount = 1;
+    self.animation.duration = 0.5;
+    self.animation.delegate = self;
+    [self addAnimation:self.animation forKey:@"position"];
 }
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
 {
+    if (flag == NO) {
+        return;
+    }
+    
     [self removeFromSuperlayer];
+    [self removeFromViewArray];
+}
+
+- (void)removeFromViewArray
+{
+    [self.allLaserBlasts removeObject:self];
+}
+
+- (void)unsetAnimationDelegate
+{
+    self.animation.delegate = nil;
 }
 
 @end

@@ -6,23 +6,26 @@
 //  Copyright (c) 2012 Robert Carter. All rights reserved.
 //
 
-#import "MainViewController.h"
+#import "GameViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "GameView.h"
 
-@interface MainViewController ()
+@interface GameViewController ()
 {
-    
+    GameView *gameView;
 }
 @property (strong, nonatomic) AVAudioPlayer *musicPlayer;
 @end
 
-@implementation MainViewController
+@implementation GameViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        //gameView = [GameView new];
+        //[self setView:gameView];
     }
     return self;
 }
@@ -32,9 +35,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
-    NSString *music = [[NSBundle mainBundle] pathForResource:@"astroid" ofType:@"mp4"];
-    self.musicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:music] error:NULL];
-    [self.musicPlayer play];
+    
+    //NSLog(@"User selected the ship" )
+    
+//    NSString *music = [[NSBundle mainBundle] pathForResource:@"astroid" ofType:@"mp4"];
+//    self.musicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:music] error:NULL];
+//    [self.musicPlayer play];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    //  Cast the view to a GameView object first then star the continuous collision detection for both ship/asteroid and asteroid/laser
+    [(GameView*) self.view startCollisionDetectorLoop];
 }
 
 - (void)viewDidUnload

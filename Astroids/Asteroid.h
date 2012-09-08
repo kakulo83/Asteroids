@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface Asteroid : CALayer
-- (id)initWithPosition:(CGPoint)position andDirection:(CGPoint)direction;
+- (id)initWithPosition:(CGPoint)position andEndPosition:(CGPoint)endPosition;
 - (void)animate;
-- (void)destroy;
+- (void)unsetAnimationDelegate;
 @end
