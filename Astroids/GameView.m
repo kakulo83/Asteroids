@@ -15,37 +15,41 @@
 
 @interface GameView()
 {
-    Ship *ship;
 //    AVAudioPlayer *laserPlayer;
 //    NSMutableArray *allAsteroids;
 //    NSMutableArray *allLasers;
     NSTimer *collisionLoop;
 }
-
+@property (nonatomic) ShipType shipType;
+@property (strong,nonatomic) Ship *ship;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (strong,nonatomic) NSMutableArray *allAsteroids;
+@property (strong,nonatomic) NSMutableArray *allPlayerLasers;
+@property (strong,nonatomic) NSMutableArray *allEnemyLasers;
+@property (strong,nonatomic) NSMutableArray *allEnemyShips;
 
 - (BOOL) isMovingLeft:(CGPoint)touchPoint;
-- (void) initInfiniteSpaceScrolling;
-
+- (void)initInfiniteSpaceScrollingWithBackgroundImage:(UIImage*)backgroundImage;
 @end
 
 @implementation GameView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andShipType:(ShipType)shipType
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self initMainView];
+        self.shipType = shipType;
+        [self initObjects];
     }
     return self;
 }
 
 - (void)awakeFromNib
 {
-    [self initMainView];
+    [self initObjects];
 }
 
-- (void)initMainView
+- (void)initObjects
 {
     // Initialize UITapGesture
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shootLaser:)];
@@ -55,7 +59,7 @@
     [self addGestureRecognizer:self.tap];
     
     // Initialize the background
-    [self initInfiniteSpaceScrolling];
+    [self initInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"space.png"]];
     
     // Initialize laser player
 //    NSString *music = [[NSBundle mainBundle] pathForResource:@"laser" ofType:@"mp4"];
@@ -63,45 +67,56 @@
 //    [laserPlayer prepareToPlay];
     
     // Initialize the ship
-    CGPoint position = CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height - 35);
-    ship = [[Ship alloc] initWithPosition:position andImageFile:@"falcon.png"];
-    [self.layer addSublayer:ship];
-        
-    // Initialize allLasers Array
-    self.allLaserBlasts = [NSMutableArray new];
+    [self initPlayerShip];
+            
+    // Create allPlayerLasers Array
+    self.allPlayerLasers = [NSMutableArray new];
+    
+    // Create allEnemyLasers Array
+    self.allEnemyLasers = [NSMutableArray new];
     
     // Initialize some asteroids Array
     self.allAsteroids = [NSMutableArray new];
-        
-    Asteroid *asteroid0 = [[Asteroid alloc] initWithPosition:CGPointMake(0.0, 0.0) andEndPosition:CGPointMake(120, 750) ];
-    [[self layer] addSublayer:asteroid0];
-    [self.allAsteroids addObject:asteroid0];
-    [asteroid0 animate];
-        
-    Asteroid *asteroid1 = [[Asteroid alloc] initWithPosition:CGPointMake(235.0, 6.0) andEndPosition:CGPointMake(-45, 600)];
-    [[self layer] addSublayer:asteroid1];
-    [asteroid1 animate];
-    [self.allAsteroids addObject:asteroid1];
+ 
+    // Add asteroid
+    [self addAsteroid];
     
-    Asteroid *asteroid2 = [[Asteroid alloc] initWithPosition:CGPointMake(235.0, 56.0) andEndPosition:CGPointMake(45, 600)];
-    [[self layer] addSublayer:asteroid2];
-    [asteroid2 animate];
-    [self.allAsteroids addObject:asteroid2];
-    
-    
-    // Initialize some tie fighters
-    EnemyShip *tieFighter1 = [[EnemyShip alloc] initWithPosition:CGPointMake(15.0, 50.0) imageFile:@"tieFighter.png"];
-    tieFighter1.allLaserBlasts = self.allLaserBlasts;
-    [self.layer addSublayer:tieFighter1];
-    [tieFighter1 animate];
-    [self.allEnemyShips addObject:tieFighter1];
-
+    // Add enemy ship
+    [self addEnemyShip];
+            
     [self setNeedsDisplay];
 }
 
-- (void) initInfiniteSpaceScrolling
+- (void)initPlayerShip
 {
-    UIImage *spaceImage = [UIImage imageNamed:@"space.png"];
+    CGPoint position = CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height - 35);
+    
+    switch (self.shipType) {
+        case 1: {
+            self.ship = [[Ship alloc] initWithPosition:position andImageFile:@"falcon.png"];
+        }
+            break;
+        case 2: {
+            self.ship = [[Ship alloc] initWithPosition:position andImageFile:@"xwing.png"];
+        }
+            break;
+        case 3: {
+            self.ship = [[Ship alloc] initWithPosition:position andImageFile:@"twing.png"];
+        }
+            break;
+        case 4: {
+            self.ship = [[Ship alloc] initWithPosition:position andImageFile:@"ywing.png"];
+        }
+            break;
+        default:
+            break;
+    }
+    [self.layer addSublayer:self.ship];
+}
+
+- (void)initInfiniteSpaceScrollingWithBackgroundImage:(UIImage*)backgroundImage
+{
+    UIImage *spaceImage = backgroundImage;
     UIColor *spacePattern = [UIColor colorWithPatternImage:spaceImage];
     CALayer *space = [CALayer layer];
     space.backgroundColor = spacePattern.CGColor;
@@ -130,7 +145,7 @@
 
 - (BOOL)isMovingLeft:(CGPoint)touchPoint
 {
-    if (touchPoint.x < ship.position.x) {
+    if (touchPoint.x < self.ship.position.x) {
         return YES;
     }
     else {
@@ -152,10 +167,11 @@
     // Check for ship/asteroid collision
     if ([self.allAsteroids count] != 0) {
         for (Asteroid *asteroid in self.allAsteroids) {
-            if (CGRectIntersectsRect([ship.presentationLayer frame], [asteroid.presentationLayer frame])) {
+            if (CGRectIntersectsRect([self.ship.presentationLayer frame], [asteroid.presentationLayer frame])) {
                 // Ship has collided with an asteroid
                 
-                NSLog(@"Ship collided with asteroid");
+                // NSLog(@"Ship collided with asteroid");
+                [self.delegate playerDied];
             }
         }
     }
@@ -164,11 +180,12 @@
     NSMutableArray *asteroidsToBeRemoved = [NSMutableArray new];
     NSMutableArray *lasersToBeRemoved    = [NSMutableArray new];
      
-    for (LaserBlast *laser in self.allLaserBlasts) {
+    for (LaserBlast *laser in self.allPlayerLasers) {
         for (Asteroid *asteroid in self.allAsteroids) {
                         
             if (CGRectIntersectsRect([laser.presentationLayer frame], [asteroid.presentationLayer frame]) ) {
-               
+                [self.delegate asteroidDestroyed];
+                
                 // Remove from the SuperLayer
                 [asteroid removeFromSuperlayer];
                 [laser removeFromSuperlayer];
@@ -187,7 +204,7 @@
     // Remove the asteroids and lasers that have collided
     if ([asteroidsToBeRemoved count] != 0) {
         [self.allAsteroids removeObjectsInArray:asteroidsToBeRemoved];
-        [self.allLaserBlasts removeObjectsInArray:lasersToBeRemoved];
+        [self.allPlayerLasers removeObjectsInArray:lasersToBeRemoved];
     }
 }
 
@@ -198,16 +215,16 @@
 
     // Get the ship's presentation layer's position (the ship might be in the middle of an animation)
     // In order to get this presentation layer's position we have to TELL the Compiler that what we get back from the method "presentationLayer" is a CALayer, thus we CAST it to a CALayer*
-    CGPoint laserOrigin = [(CALayer*)[ship presentationLayer] position];
+    CGPoint laserOrigin = [(CALayer*)[self.ship presentationLayer] position];
    
     // Create new laser object and give it a reference to the NSMutableArray that will hold it (so when the laser deletes itself from its superlayer it can also remove itself from this container)
-    LaserBlast *laserBlast = [[LaserBlast alloc] initWithPosition:laserOrigin AndLaserArrayContainer:self.allLaserBlasts];
+    LaserBlast *laserBlast = [[LaserBlast alloc] initWithPosition:laserOrigin AndLaserArrayContainer:self.allPlayerLasers];
     
     // Add laser object to view's layer
     [self.layer addSublayer:laserBlast];
 
     // Add laser to GameView's allLaserBlasts Array
-    [self.allLaserBlasts addObject:laserBlast];
+    [self.allPlayerLasers addObject:laserBlast];
     
     // Call the laser's animation method.  Also note that the laserBlast object will also remove itself from its superLayer by means of an animation delegate callback method in itself.
     [laserBlast animate];
@@ -220,21 +237,64 @@
     // "Bank" the ship in the direction of the movement
     if ([self isMovingLeft:touchLocation]) {
         CGFloat angle = -40 * M_PI / 180.0;
-        ship.transform = CATransform3DMakeRotation(angle, 0.0, 1.0, 0.0);
+        self.ship.transform = CATransform3DMakeRotation(angle, 0.0, 1.0, 0.0);
     }
     else {
         CGFloat angle = 40 * M_PI / 180.0;
-        ship.transform = CATransform3DMakeRotation(angle, 0.0, 1.0, 0.0);
+        self.ship.transform = CATransform3DMakeRotation(angle, 0.0, 1.0, 0.0);
     }
 
     // Move the ship to the position
-    ship.position = touchLocation;
+    self.ship.position = touchLocation;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    ship.transform = CATransform3DIdentity;
+    self.ship.transform = CATransform3DIdentity;
 }
 
+- (void)addAsteroid
+{
+    //  Add code to create new asteroid obstacles
+    Asteroid *asteroid = [[Asteroid alloc] initWithPosition:CGPointMake(0.0, 0.0) andEndPosition:CGPointMake(120, 750) ];
+    [[self layer] addSublayer:asteroid];
+    [self.allAsteroids addObject:asteroid];
+    [asteroid animate];
+}
+
+- (void)addEnemyShip
+{
+    //  Create a new enemy ship with a reference to the player's ship
+    if (self.ship) {
+        EnemyShip *tieFighter = [[EnemyShip alloc] initWithPosition:CGPointMake(15.0, 50.0) imageFile:@"tieFighter.png" playerShip:self.ship andAllENemyLasersArray:self.allEnemyLasers];
+        [self.layer addSublayer:tieFighter];
+        [tieFighter animate];
+        [self.allEnemyShips addObject:tieFighter];
+    }
+}
+
+- (void)addChainOfEnemyShips
+{
+    //  Add code to create a new chain of enemy ships
+}
+
+- (void)nextLevel
+{
+    //  Change the background imagery
+    [self initInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level2Background.png"]];
+    
+    //  Add code to change the level background
+    
+    //  Add more ships thereby increasing the difficulty
+
+    
+    //  Update the view to show the level change
+    [self updateView];
+}
+
+- (void)updateView
+{
+    [self setNeedsDisplay];
+}
 
 @end

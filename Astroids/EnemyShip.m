@@ -7,29 +7,36 @@
 //
 
 #import "EnemyShip.h"
+#import "Ship.h"
 
 @interface EnemyShip() {
     
 }
+@property Ship *playerShip;
+@property NSMutableArray *allEnemyLasers;
 @property CAAnimationGroup *animationGroup;
 @property NSMutableArray *animationValues;
-
 @end
 
 @implementation EnemyShip
 
--(id) initWithPosition:(CGPoint)position imageFile:(NSString*)file
+-(id) initWithPosition:(CGPoint)position imageFile:(NSString*)file playerShip:(Ship*)playerShip andAllENemyLasersArray:(NSMutableArray *)allEnemyLasers
 {
     self = [super init];
 
     if (self) {
+        self.playerShip = playerShip;
+        self.allEnemyLasers = allEnemyLasers;
+
         UIImage *shipImage = [UIImage imageNamed:file];
         CGFloat width = shipImage.size.width;
         CGFloat height= shipImage.size.height;
+        
         self.bounds = CGRectMake(0.0, 0.0, width, height);
         self.position = position;
         self.zPosition = 1000;
         self.contents = (__bridge id)([shipImage CGImage]);
+        
         [self initializeAnimationPoints];
     }
     return self;
@@ -45,14 +52,13 @@
     };
     
     for (float x = self.position.x; x < self.position.x + 150; x++) {
-        CGPoint point = CGPointMake(x, leg1(x));
+        CGPoint point = CGPointMake(x, leg1(x) + self.position.y);
         [self.animationValues addObject:[NSValue valueWithCGPoint:point]];
     }
     
-    CGPoint transitionPoint1 = [[self.animationValues lastObject] CGPointValue] ;
+    CGPoint transitionPoint1 = [[self.animationValues lastObject] CGPointValue];
     double constant2 = transitionPoint1.y + transitionPoint1.x;
-    
-    
+        
     //  second leg of animation
     double (^leg2)(double x) = ^double(double x) {
         return (constant2 - x);
@@ -62,6 +68,7 @@
         CGPoint point = CGPointMake(x, leg2(x));
         [self.animationValues addObject:[NSValue valueWithCGPoint:point]];
     }
+
 }
 
 - (void)animate
@@ -82,13 +89,26 @@
 
 - (CGPoint)newRandomDirection
 {
-    float deltaX = arc4random() % 39 - 20;
-    float deltaY = arc4random() % 79 - 40;
-    return CGPointMake(deltaX, deltaY);
+    float x = arc4random() % (int)self.superlayer.bounds.size.width;
+    float y = -50;
+    return CGPointMake(x, y);
+}
+
+- (void)keepAsteroidWithinView
+{
+    double viewWidth = self.superlayer.bounds.size.width;
+    double viewHeight = self.superlayer.bounds.size.height;
+    
+    if (([self.presentationLayer position].y > viewHeight) || ([self.presentationLayer position].x < 0) || ([self.presentationLayer position].x > viewWidth) ) {
+        self.position = CGPointMake(self.superlayer.bounds.size.width/2.0, 0.0);
+    }
 }
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
 {
+    if (flag == NO)
+        return;
+    
     [self attack];
     [self animate];
 }
@@ -102,7 +122,12 @@
 {
     // Shoot at the player's current presentation position
     NSLog(@"Attacking player");
-    // Add the h
+
+    
+    // Problem:  if the enemyShip is already itself the delegate for its motion animation, who will be the delegate for its laser animation?
+    
+    
+    
 }
 
 @end

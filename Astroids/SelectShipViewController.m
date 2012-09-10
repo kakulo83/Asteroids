@@ -13,12 +13,19 @@
 {
 
 }
+
 //  ShipType is defined in the GameViewController header file which has been imported here
 @property ShipType ship;
 
+//  Outlets needed for highlighting effect
+@property (weak, nonatomic) IBOutlet UIButton *selectFalconButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectXWingButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectTWingButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectYWingButton;
 @end
 
 @implementation SelectShipViewController
+@synthesize selectFalconButton = _selectFalconButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +44,7 @@
 
 - (void)viewDidUnload
 {
+    [self setSelectFalconButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -49,25 +57,40 @@
 
 - (IBAction)selectShipPressed:(UIButton *)sender
 {
+    [self.selectFalconButton setBackgroundImage:[UIImage imageNamed:@"selectFalcon.png"] forState:UIControlStateNormal];
+    [self.selectXWingButton  setBackgroundImage:[UIImage imageNamed:@"selectXWing.png"]  forState:UIControlStateNormal];
+    [self.selectTWingButton  setBackgroundImage:[UIImage imageNamed:@"selectTWing.png"]  forState:UIControlStateNormal];
+    [self.selectYWingButton  setBackgroundImage:[UIImage imageNamed:@"selectYWing.png"]  forState:UIControlStateNormal];
+    
     // Each ship button has been given within Interface-Builder a tag attribute ranging from 0 to 3
     switch (sender.tag) {
-        case 0:
+        case 1: {
             self.ship = falcon;
+            [sender setBackgroundImage:[UIImage imageNamed:@"selectFalconHighlighted.png"] forState:UIControlStateNormal];
+        }
             break;
-        case 1:
+        case 2: {
             self.ship = xwing;
+            [sender setBackgroundImage:[UIImage imageNamed:@"selectXWingHighlighted.png"] forState:UIControlStateNormal];
+        }
             break;
-        case 2:
+        case 3: {
             self.ship = twing;
+            [sender setBackgroundImage:[UIImage imageNamed:@"selectTWingHighlighted.png"] forState:UIControlStateNormal];
+        }
             break;
-        case 3:
+        case 4: {
             self.ship = ywing;
+            [sender setBackgroundImage:[UIImage imageNamed:@"selectYWingHighlighted.png"] forState:UIControlStateNormal];
+        }
             break;
-        default:
+        default: {
             NSLog(@"Invalid ship type selected");
-            break;
+        }
+        break;
     }
-    //  NSLog(@"User selected ship %d",self.ship);
+    
+    //  NSLog(@"Selected ship %u", self.ship);
 }
 
 - (IBAction)startPressed
@@ -84,7 +107,6 @@
     else {
         GameViewController *gameController = [GameViewController new];
         gameController.shipType = self.ship;
-        //[self.navigationController pushViewController:gameController animated:NO];
         [self presentViewController:gameController animated:NO completion:nil];
     }
 }

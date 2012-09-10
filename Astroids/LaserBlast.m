@@ -24,8 +24,8 @@
         
     if (self) {
         self.allLaserBlasts = allLaserBlasts;
-        self.bounds = CGRectMake(0.0, 0.0, 70.0, 70.0);
-        self.frame = CGRectMake(0,0, 20, 100);
+        self.bounds = CGRectMake(0.0, 0.0, 5.0, 106.0);
+        self.frame = CGRectMake(0,0, 5, 106);
         self.position = CGPointMake(position.x, position.y - 50);   // The 50 offset is to make sure the laser doesn't start from behind the ship, but seems to appear from the ship.
         self.zPosition = 500;
 

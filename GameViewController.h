@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum { empty, falcon, xwing, twing, ywing } ShipType;
+
 @interface GameViewController : UIViewController
-//  Define a ShipType enum that encapsulates valid user ship selections
-typedef enum ShipType { xwing, falcon, ywing, twing } ShipType;
 @property ShipType shipType;
 @end

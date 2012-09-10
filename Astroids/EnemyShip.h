@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 @class GameView;
+@class Ship;
 
 @interface EnemyShip : CALayer
-@property (weak, nonatomic) NSMutableArray* allLaserBlasts;
--(id) initWithPosition:(CGPoint)position imageFile:(NSString*)file;
+-(id) initWithPosition:(CGPoint)position imageFile:(NSString*)file playerShip:(Ship*)playerShip andAllENemyLasersArray:(NSMutableArray *)allEnemyLasers;
 -(void) animate;
 - (void)unsetAnimationDelegate;
 @end
