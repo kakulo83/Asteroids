@@ -8,9 +8,10 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+typedef enum LaserType { player, enemy } LaserType;
+
 @interface LaserBlast : CALayer
-@property (weak,nonatomic) NSMutableArray *allLaserBlasts;
--(id) initWithPosition:(CGPoint)position AndLaserArrayContainer:(NSMutableArray*) allLaserBlasts;
+- (id)initWithPosition:(CGPoint)startPosition targetPosition:(CGPoint)targetPosition laserType:(LaserType)type AndLaserArrayContainer:(NSMutableArray*) laserArrayContainer;
 - (void)animate;
 - (void)unsetAnimationDelegate;
 @end

@@ -8,93 +8,127 @@
 
 #import "EnemyShip.h"
 #import "Ship.h"
+#import "LaserBlast.h"
 
-@interface EnemyShip() {
-    
-}
+@interface EnemyShip()
 @property Ship *playerShip;
-@property NSMutableArray *allEnemyLasers;
+@property (weak, nonatomic) NSMutableArray *allEnemyLasers;
+@property CGPoint newPosition;
 @property CAAnimationGroup *animationGroup;
-@property NSMutableArray *animationValues;
+
 @end
 
 @implementation EnemyShip
 
--(id) initWithPosition:(CGPoint)position imageFile:(NSString*)file playerShip:(Ship*)playerShip andAllENemyLasersArray:(NSMutableArray *)allEnemyLasers
+- (id)initWithPosition:(CGPoint)position shipType:(EnemyShipType)shipType playerShip:(Ship*)playerShip andAllENemyLasersArray:(NSMutableArray *)allEnemyLasers
 {
     self = [super init];
 
-    if (self) {
-        self.playerShip = playerShip;
-        self.allEnemyLasers = allEnemyLasers;
+    if (!self)
+        return nil;
+    
+    self.playerShip = playerShip;
+    self.allEnemyLasers = allEnemyLasers;
 
-        UIImage *shipImage = [UIImage imageNamed:file];
-        CGFloat width = shipImage.size.width;
-        CGFloat height= shipImage.size.height;
-        
-        self.bounds = CGRectMake(0.0, 0.0, width, height);
-        self.position = position;
-        self.zPosition = 1000;
-        self.contents = (__bridge id)([shipImage CGImage]);
-        
-        [self initializeAnimationPoints];
+    //  Set the content image depending on the enemy ship type
+    UIImage *enemyShipImage;
+    switch (shipType) {
+        case Tie: {
+            enemyShipImage = [UIImage imageNamed:@"tieFighter.png"];
+        }
+            break;
+        case Interceptor: {
+            enemyShipImage = [UIImage imageNamed:@"tieInterceptor.png"];
+        }
+            break;
+        case Bomber: {
+            enemyShipImage = [UIImage imageNamed:@"tieBomber.png"];
+        }
+            break;
+        default:
+            break;
     }
+
+    CGFloat width = enemyShipImage.size.width;
+    CGFloat height= enemyShipImage.size.height;
+    
+    self.bounds = CGRectMake(0.0, 0.0, width, height);
+    self.position = position;
+    self.zPosition = 1000;
+    self.contents = (__bridge id)([enemyShipImage CGImage]);
+
     return self;
 }
 
-- (void)initializeAnimationPoints
-{
-    self.animationValues = [NSMutableArray new];
-    
-    //  first leg of animation
-    double (^leg1)(double x) = ^double(double x) {
-        return x;
-    };
-    
-    for (float x = self.position.x; x < self.position.x + 150; x++) {
-        CGPoint point = CGPointMake(x, leg1(x) + self.position.y);
-        [self.animationValues addObject:[NSValue valueWithCGPoint:point]];
-    }
-    
-    CGPoint transitionPoint1 = [[self.animationValues lastObject] CGPointValue];
-    double constant2 = transitionPoint1.y + transitionPoint1.x;
-        
-    //  second leg of animation
-    double (^leg2)(double x) = ^double(double x) {
-        return (constant2 - x);
-    };
-
-    for (float x = transitionPoint1.x; x > 0; x--) {
-        CGPoint point = CGPointMake(x, leg2(x));
-        [self.animationValues addObject:[NSValue valueWithCGPoint:point]];
-    }
-
-}
+//- (NSArray *)createAnimationPathValues
+//{
+//    NSMutableArray *animationPathValues = [NSMutableArray new];
+//    
+//    //  Create a new end-point within the screen
+//    CGFloat endPointX = arc4random() % (int)self.superlayer.bounds.size.width;
+//    CGFloat endPointY = arc4random() % (int)self.superlayer.bounds.size.height;
+//
+//    if ([self.presentationLayer position].x < endPointX) {
+//        for (float x = [self.presentationLayer position].x; x < endPointX; x++ ) {
+//            
+//        }
+//    }
+//    
+//    //  first leg of animation
+//    double (^leg1)(double x) = ^double(double x) {
+//        return x;
+//    };
+//    
+//    for (float x = self.position.x; x < self.position.x + 150; x++) {
+//        CGPoint point = CGPointMake(x, leg1(x) + self.position.y);
+//        [animationPathValues addObject:[NSValue valueWithCGPoint:point]];
+//    }
+//    
+//    CGPoint transitionPoint1 = [[animationPathValues lastObject] CGPointValue];
+//    double constant2 = transitionPoint1.y + transitionPoint1.x;
+//        
+//    //  second leg of animation
+//    double (^leg2)(double x) = ^double(double x) {
+//        return (constant2 - x);
+//    };
+//
+//    for (float x = transitionPoint1.x; x > 0; x--) {
+//        CGPoint point = CGPointMake(x, leg2(x));
+//        [animationPathValues addObject:[NSValue valueWithCGPoint:point]];
+//    }
+//    return animationPathValues;
+//}
 
 - (void)animate
 {
-    if (!self.animationValues)
-        [self initializeAnimationPoints];
+    //  NSArray *animationPathValues = [self createAnimationPathValues];
+   
+//    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+//    animation.values = [NSArray arrayWithObject:[NSValue valueWithCGPoint:newEndPosition]];
+//
+//    self.animationGroup = [CAAnimationGroup animation];
+//    self.animationGroup.delegate = self;
+//    self.animationGroup.animations = [NSArray arrayWithObject:animation];
+//    self.animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+//    self.animationGroup.duration = 10.0;
+//    [self addAnimation:self.animationGroup forKey:@"animateMotion"];
+
+    CGFloat newX = arc4random() % (int)self.superlayer.bounds.size.width;
+    CGFloat newY = arc4random() % (int)self.superlayer.bounds.size.height;
+    CGPoint newEndPosition = CGPointMake(newX, newY);
     
-    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    animation.values = self.animationValues;
-
-    self.animationGroup = [CAAnimationGroup animation];
-    self.animationGroup.delegate = self;
-    self.animationGroup.animations = [NSArray arrayWithObject:animation];
-    self.animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    self.animationGroup.duration = 10.0;
-    [self addAnimation:self.animationGroup forKey:@"animateMotion"];
+    self.newPosition = newEndPosition;
+    
+    CABasicAnimation *enemyAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+    enemyAnimation.delegate = self;
+    enemyAnimation.duration = 5.0;
+    enemyAnimation.repeatCount = 0;
+    enemyAnimation.fromValue = [NSValue valueWithCGPoint:self.position];
+    enemyAnimation.toValue = [NSValue valueWithCGPoint:newEndPosition];
+    [self addAnimation:enemyAnimation forKey:@"movement"];
 }
 
-- (CGPoint)newRandomDirection
-{
-    float x = arc4random() % (int)self.superlayer.bounds.size.width;
-    float y = -50;
-    return CGPointMake(x, y);
-}
-
-- (void)keepAsteroidWithinView
+- (void)keepShipWithinView
 {
     double viewWidth = self.superlayer.bounds.size.width;
     double viewHeight = self.superlayer.bounds.size.height;
@@ -109,6 +143,9 @@
     if (flag == NO)
         return;
     
+    //  Update the position
+    self.position = self.newPosition;
+
     [self attack];
     [self animate];
 }
@@ -120,14 +157,17 @@
 
 - (void)attack
 {
-    // Shoot at the player's current presentation position
-    NSLog(@"Attacking player");
-
+    //  NSLog(@"Attacking player");
     
-    // Problem:  if the enemyShip is already itself the delegate for its motion animation, who will be the delegate for its laser animation?
+    //  Shoot at the player's current presentation position
+    LaserType laserType = enemy;
+    LaserBlast *laserBlast = [[LaserBlast alloc] initWithPosition:self.position targetPosition:self.playerShip.position laserType:laserType AndLaserArrayContainer:self.allEnemyLasers];
+    [self.superlayer addSublayer:laserBlast];
     
+    //  Add enemy laser blast to view's array of enemyLaserBlasts
+    [self.allEnemyLasers addObject:laserBlast];
     
-    
+    [laserBlast animate];
 }
 
 @end

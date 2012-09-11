@@ -26,7 +26,7 @@
         self.bounds = CGRectMake(0.0, 0.0, 70.0, 70.0);
         self.position = position;
         self.endPosition = endPosition;
-        self.zPosition = 1000;
+        self.zPosition = 2000;
         NSString *fileName = [NSString stringWithFormat:@"asteroid.png"];
         UIImage *shipImage = [UIImage imageNamed:fileName];
         self.contents = (__bridge id)([shipImage CGImage]);
@@ -36,6 +36,12 @@
 
 - (void)animate
 {
+    CGFloat x = arc4random() % (int)self.superlayer.bounds.size.width;
+    CGFloat y = -10.0;
+        
+    self.position = CGPointMake(x,y);
+    self.endPosition = [self newRandomEndPosition];
+    
     //  Create translation animation
     CABasicAnimation *translate = [CABasicAnimation animationWithKeyPath:@"position"];
     [translate setFromValue:[NSValue valueWithCGPoint:self.position]];
@@ -43,7 +49,16 @@
     
     //  Create rotation animation
     CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    [rotate setToValue:[NSNumber numberWithFloat:M_PI * 2.0]];
+
+    //  Make some asteroids rotate clockwise and others counterclockwise by generating a random +1 / -1  rotation multiplier
+    int binaryDice = arc4random() % 2;
+    double rotationSign;
+    if (binaryDice == 1)
+        rotationSign = -1.0;
+    else
+        rotationSign = 1.0;
+        
+    [rotate setToValue:[NSNumber numberWithFloat:M_PI * 2.0 * rotationSign]];
  
     //  Combine rotate and translate animation into one
     self.animation = [CAAnimationGroup animation];
@@ -53,17 +68,6 @@
     [self.animation setFillMode:kCAFillModeForwards];
     [self.animation setDelegate:self];
     [self addAnimation:self.animation forKey:nil];
-}
-
-- (void)keepAsteroidWithinView
-{
-    double viewWidth = self.superlayer.bounds.size.width;
-    double viewHeight = self.superlayer.bounds.size.height;
-          
-    if (([self.presentationLayer position].y > viewHeight) || ([self.presentationLayer position].x < 0) || ([self.presentationLayer position].x > viewWidth) ) {
-        self.position = CGPointMake(self.superlayer.bounds.size.width/2.0, 0.0);
-        self.endPosition = [self newRandomEndPosition];
-    }
 }
 
 - (CGPoint)newRandomEndPosition
@@ -78,13 +82,13 @@
     //  When the asteroid is removed from the superlayer (view) animationDidStop is called
     if (flag == NO)
         return;
-    
-    [self keepAsteroidWithinView];
+
     [self animate];
 }
 
 - (void)unsetAnimationDelegate
 {
+    //  NOTE: an animation delegate is a STRONG pointer type, to avoid a memory retain cycle make sure to destroy the delegate or the object that is being animated will be retained.
     self.animation.delegate = nil;
 }
 

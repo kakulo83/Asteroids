@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GameViewController.h"
+#import "EnemyShip.h"
 
 // The implementation of this protocol by a controller will keep the controller informed of interesting game events
 // such as when the player dies, when the player has destroyed enough enemies/gained enough points to advance to the next level, etc.
@@ -18,7 +19,6 @@
 - (void)asteroidDestroyed;
 @end
 
-
 @interface GameView : UIView
 {
     id <GameViewEventDelegate> delegate;
@@ -28,7 +28,7 @@
 - (void)startCollisionDetectorLoop;
 - (void)updateView;
 - (void)addAsteroid;
-- (void)addEnemyShip;
+- (void)addEnemyShipOfType:(EnemyShipType)type;
 - (void)addChainOfEnemyShips;
-- (void)nextLevel;
+- (void)nextLevel:(GameLevel)level;
 @end

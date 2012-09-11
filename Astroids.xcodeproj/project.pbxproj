@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A3859FB15FB3CE90014A041 /* bomberTieFighter.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FA15FB3CE90014A041 /* bomberTieFighter.png */; };
-		8A3859FE15FB3F570014A041 /* tieFighter2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FD15FB3F570014A041 /* tieFighter2.png */; };
+		8A1162D015FE94C300447125 /* level2Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A1162CF15FE94C300447125 /* level2Background.png */; };
+		8A1162D215FE94CB00447125 /* level3Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A1162D115FE94CB00447125 /* level3Background.png */; };
+		8A3859FB15FB3CE90014A041 /* tieBomber.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FA15FB3CE90014A041 /* tieBomber.png */; };
+		8A3859FE15FB3F570014A041 /* tieInterceptor.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FD15FB3F570014A041 /* tieInterceptor.png */; };
 		8A385A0015FBFACD0014A041 /* xwing.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FF15FBFACD0014A041 /* xwing.png */; };
 		8A385A0215FBFD530014A041 /* ywing.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A385A0115FBFD530014A041 /* ywing.png */; };
 		8A385A0415FBFE310014A041 /* twing.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A385A0315FBFE310014A041 /* twing.png */; };
@@ -22,7 +24,6 @@
 		8A385A2A15FC588C0014A041 /* selectYWingHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A385A2815FC588C0014A041 /* selectYWingHighlighted.png */; };
 		8A385A2E15FC6EF70014A041 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A385A2D15FC6EF60014A041 /* GameViewController.xib */; };
 		8A385A3015FC6F9F0014A041 /* SelectShipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A385A2F15FC6F9E0014A041 /* SelectShipViewController.xib */; };
-		8A385A3215FD12190014A041 /* level2Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A385A3115FD12190014A041 /* level2Background.png */; };
 		8A42A0C315E6C5E30078D033 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C215E6C5E30078D033 /* UIKit.framework */; };
 		8A42A0C515E6C5E30078D033 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C415E6C5E30078D033 /* Foundation.framework */; };
 		8A42A0C715E6C5E30078D033 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C615E6C5E30078D033 /* CoreGraphics.framework */; };
@@ -59,8 +60,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8A3859FA15FB3CE90014A041 /* bomberTieFighter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bomberTieFighter.png; sourceTree = "<group>"; };
-		8A3859FD15FB3F570014A041 /* tieFighter2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tieFighter2.png; sourceTree = "<group>"; };
+		8A1162CF15FE94C300447125 /* level2Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level2Background.png; sourceTree = "<group>"; };
+		8A1162D115FE94CB00447125 /* level3Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level3Background.png; sourceTree = "<group>"; };
+		8A3859FA15FB3CE90014A041 /* tieBomber.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tieBomber.png; sourceTree = "<group>"; };
+		8A3859FD15FB3F570014A041 /* tieInterceptor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tieInterceptor.png; sourceTree = "<group>"; };
 		8A3859FF15FBFACD0014A041 /* xwing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xwing.png; sourceTree = "<group>"; };
 		8A385A0115FBFD530014A041 /* ywing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ywing.png; sourceTree = "<group>"; };
 		8A385A0315FBFE310014A041 /* twing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twing.png; sourceTree = "<group>"; };
@@ -74,7 +77,6 @@
 		8A385A2815FC588C0014A041 /* selectYWingHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectYWingHighlighted.png; sourceTree = "<group>"; };
 		8A385A2D15FC6EF60014A041 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		8A385A2F15FC6F9E0014A041 /* SelectShipViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectShipViewController.xib; sourceTree = "<group>"; };
-		8A385A3115FD12190014A041 /* level2Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level2Background.png; sourceTree = "<group>"; };
 		8A42A0BE15E6C5E30078D033 /* Astroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Astroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A42A0C215E6C5E30078D033 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8A42A0C415E6C5E30078D033 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -216,9 +218,10 @@
 		8AA991DB15E9A52000143800 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8A1162D115FE94CB00447125 /* level3Background.png */,
+				8A1162CF15FE94C300447125 /* level2Background.png */,
 				8A42A0EF15E6CE620078D033 /* laser.png */,
 				8AB2B00A15FD4B3C007DEB5D /* greenLaser.png */,
-				8A385A3115FD12190014A041 /* level2Background.png */,
 				8A385A2715FC588C0014A041 /* selectYWing.png */,
 				8A385A2815FC588C0014A041 /* selectYWingHighlighted.png */,
 				8A385A2315FC58840014A041 /* selectXWing.png */,
@@ -231,9 +234,9 @@
 				8A385A0315FBFE310014A041 /* twing.png */,
 				8A385A0115FBFD530014A041 /* ywing.png */,
 				8A3859FF15FBFACD0014A041 /* xwing.png */,
-				8A3859FD15FB3F570014A041 /* tieFighter2.png */,
-				8A3859FA15FB3CE90014A041 /* bomberTieFighter.png */,
 				8AAC434C15EC5CEF0007103D /* tieFighter.png */,
+				8A3859FD15FB3F570014A041 /* tieInterceptor.png */,
+				8A3859FA15FB3CE90014A041 /* tieBomber.png */,
 				8AA991D015E9746700143800 /* welcome.png */,
 				8AA991FF15E9BB1600143800 /* selectBackground.png */,
 				8AA991F815E9B23900143800 /* blackButtonBackground.png */,
@@ -322,8 +325,8 @@
 				8AA9920615E9C41300143800 /* milleniumFalcon.png in Resources */,
 				8AAC434B15EC52B30007103D /* falcon.png in Resources */,
 				8AAC434D15EC5CEF0007103D /* tieFighter.png in Resources */,
-				8A3859FB15FB3CE90014A041 /* bomberTieFighter.png in Resources */,
-				8A3859FE15FB3F570014A041 /* tieFighter2.png in Resources */,
+				8A3859FB15FB3CE90014A041 /* tieBomber.png in Resources */,
+				8A3859FE15FB3F570014A041 /* tieInterceptor.png in Resources */,
 				8A385A0015FBFACD0014A041 /* xwing.png in Resources */,
 				8A385A0215FBFD530014A041 /* ywing.png in Resources */,
 				8A385A0415FBFE310014A041 /* twing.png in Resources */,
@@ -337,8 +340,9 @@
 				8A385A2A15FC588C0014A041 /* selectYWingHighlighted.png in Resources */,
 				8A385A2E15FC6EF70014A041 /* GameViewController.xib in Resources */,
 				8A385A3015FC6F9F0014A041 /* SelectShipViewController.xib in Resources */,
-				8A385A3215FD12190014A041 /* level2Background.png in Resources */,
 				8AB2B00B15FD4B3C007DEB5D /* greenLaser.png in Resources */,
+				8A1162D015FE94C300447125 /* level2Background.png in Resources */,
+				8A1162D215FE94CB00447125 /* level3Background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

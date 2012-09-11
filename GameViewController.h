@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef enum { empty, falcon, xwing, twing, ywing } ShipType;
+typedef enum { first, second, third } GameLevel;
 
 @interface GameViewController : UIViewController
 @property ShipType shipType;
