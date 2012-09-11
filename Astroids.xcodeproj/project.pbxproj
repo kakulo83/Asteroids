@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A1162D015FE94C300447125 /* level2Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A1162CF15FE94C300447125 /* level2Background.png */; };
 		8A1162D215FE94CB00447125 /* level3Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A1162D115FE94CB00447125 /* level3Background.png */; };
+		8A1162DD15FEC92700447125 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1162DC15FEC92700447125 /* MobileCoreServices.framework */; };
 		8A3859FB15FB3CE90014A041 /* tieBomber.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FA15FB3CE90014A041 /* tieBomber.png */; };
 		8A3859FE15FB3F570014A041 /* tieInterceptor.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FD15FB3F570014A041 /* tieInterceptor.png */; };
 		8A385A0015FBFACD0014A041 /* xwing.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FF15FBFACD0014A041 /* xwing.png */; };
@@ -44,6 +45,8 @@
 		8A42A10615E70A180078D033 /* Asteroid.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A10515E70A180078D033 /* Asteroid.m */; };
 		8A42A10815E70A5D0078D033 /* asteroid.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A42A10715E70A5D0078D033 /* asteroid.png */; };
 		8A58836615E75F0E004345AA /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A58836515E75F0E004345AA /* space.png */; };
+		8A6D6F6715FF09CF009FF5EF /* GameOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D6F6615FF09CF009FF5EF /* GameOverView.m */; };
+		8A6D6F6B15FF1CA6009FF5EF /* deathStarSurface.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D6F6A15FF1CA6009FF5EF /* deathStarSurface.png */; };
 		8AA7C94415E9510600061DC2 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA7C94215E9510600061DC2 /* WelcomeViewController.m */; };
 		8AA7C94515E9510600061DC2 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AA7C94315E9510600061DC2 /* WelcomeViewController.xib */; };
 		8AA991D115E9746700143800 /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AA991D015E9746700143800 /* welcome.png */; };
@@ -62,6 +65,7 @@
 /* Begin PBXFileReference section */
 		8A1162CF15FE94C300447125 /* level2Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level2Background.png; sourceTree = "<group>"; };
 		8A1162D115FE94CB00447125 /* level3Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level3Background.png; sourceTree = "<group>"; };
+		8A1162DC15FEC92700447125 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8A3859FA15FB3CE90014A041 /* tieBomber.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tieBomber.png; sourceTree = "<group>"; };
 		8A3859FD15FB3F570014A041 /* tieInterceptor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tieInterceptor.png; sourceTree = "<group>"; };
 		8A3859FF15FBFACD0014A041 /* xwing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xwing.png; sourceTree = "<group>"; };
@@ -106,6 +110,9 @@
 		8A42A10515E70A180078D033 /* Asteroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Asteroid.m; sourceTree = "<group>"; };
 		8A42A10715E70A5D0078D033 /* asteroid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asteroid.png; sourceTree = "<group>"; };
 		8A58836515E75F0E004345AA /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space.png; sourceTree = "<group>"; };
+		8A6D6F6515FF09CF009FF5EF /* GameOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverView.h; sourceTree = "<group>"; };
+		8A6D6F6615FF09CF009FF5EF /* GameOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverView.m; sourceTree = "<group>"; };
+		8A6D6F6A15FF1CA6009FF5EF /* deathStarSurface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deathStarSurface.png; path = ../../../../../Asteroids/deathStarSurface.png; sourceTree = "<group>"; };
 		8AA7C94115E9510600061DC2 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		8AA7C94215E9510600061DC2 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		8AA7C94315E9510600061DC2 /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
@@ -130,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1162DD15FEC92700447125 /* MobileCoreServices.framework in Frameworks */,
 				8A42A0E415E6C8F30078D033 /* QuartzCore.framework in Frameworks */,
 				8A42A0E215E6C8EC0078D033 /* AVFoundation.framework in Frameworks */,
 				8A42A0C315E6C5E30078D033 /* UIKit.framework in Frameworks */,
@@ -144,6 +152,7 @@
 		8A42A0B315E6C5E30078D033 = {
 			isa = PBXGroup;
 			children = (
+				8A1162DC15FEC92700447125 /* MobileCoreServices.framework */,
 				8A42A0C815E6C5E30078D033 /* Astroids */,
 				8A42A0C115E6C5E30078D033 /* Frameworks */,
 				8A42A0BF15E6C5E30078D033 /* Products */,
@@ -185,10 +194,7 @@
 				8A385A2F15FC6F9E0014A041 /* SelectShipViewController.xib */,
 				8A42A0EA15E6CB170078D033 /* GameViewController.h */,
 				8A42A0EB15E6CB170078D033 /* GameViewController.m */,
-				8AA991E915E9A6A600143800 /* ScoreViewController.h */,
 				8A385A2D15FC6EF60014A041 /* GameViewController.xib */,
-				8AA991EA15E9A6A600143800 /* ScoreViewController.m */,
-				8AA991EB15E9A6A600143800 /* ScoreViewController.xib */,
 				8A42A0F515E6D2840078D033 /* GameView.h */,
 				8A42A0F615E6D2840078D033 /* GameView.m */,
 				8AAC434615EC51170007103D /* EnemyShip.h */,
@@ -199,6 +205,11 @@
 				8A42A10215E706CE0078D033 /* LaserBlast.m */,
 				8A42A10415E70A180078D033 /* Asteroid.h */,
 				8A42A10515E70A180078D033 /* Asteroid.m */,
+				8A6D6F6515FF09CF009FF5EF /* GameOverView.h */,
+				8A6D6F6615FF09CF009FF5EF /* GameOverView.m */,
+				8AA991E915E9A6A600143800 /* ScoreViewController.h */,
+				8AA991EA15E9A6A600143800 /* ScoreViewController.m */,
+				8AA991EB15E9A6A600143800 /* ScoreViewController.xib */,
 				8A42A0C915E6C5E30078D033 /* Supporting Files */,
 			);
 			path = Astroids;
@@ -218,8 +229,10 @@
 		8AA991DB15E9A52000143800 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8A6D6F6A15FF1CA6009FF5EF /* deathStarSurface.png */,
 				8A1162D115FE94CB00447125 /* level3Background.png */,
 				8A1162CF15FE94C300447125 /* level2Background.png */,
+				8A58836515E75F0E004345AA /* space.png */,
 				8A42A0EF15E6CE620078D033 /* laser.png */,
 				8AB2B00A15FD4B3C007DEB5D /* greenLaser.png */,
 				8A385A2715FC588C0014A041 /* selectYWing.png */,
@@ -241,7 +254,6 @@
 				8AA991FF15E9BB1600143800 /* selectBackground.png */,
 				8AA991F815E9B23900143800 /* blackButtonBackground.png */,
 				8AA9920515E9C41200143800 /* milleniumFalcon.png */,
-				8A58836515E75F0E004345AA /* space.png */,
 				8A42A10715E70A5D0078D033 /* asteroid.png */,
 				8A42A0DB15E6C61B0078D033 /* ship.png */,
 			);
@@ -343,6 +355,7 @@
 				8AB2B00B15FD4B3C007DEB5D /* greenLaser.png in Resources */,
 				8A1162D015FE94C300447125 /* level2Background.png in Resources */,
 				8A1162D215FE94CB00447125 /* level3Background.png in Resources */,
+				8A6D6F6B15FF1CA6009FF5EF /* deathStarSurface.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +377,7 @@
 				8AA991EC15E9A6A600143800 /* ScoreViewController.m in Sources */,
 				8AA991FD15E9B4EA00143800 /* SelectShipViewController.m in Sources */,
 				8AAC434815EC51170007103D /* EnemyShip.m in Sources */,
+				8A6D6F6715FF09CF009FF5EF /* GameOverView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

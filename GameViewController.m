@@ -7,10 +7,14 @@
 //
 
 #import "GameViewController.h"
-#import <AVFoundation/AVFoundation.h>
+#import "WelcomeViewController.h"
+#import "SelectShipViewController.h"
+#import "ScoreViewController.h"
 #import "GameView.h"
+#import <AVFoundation/AVFoundation.h>
+#import "GameOverView.h"
 
-@interface GameViewController () <GameViewEventDelegate>
+@interface GameViewController () <GameViewEventDelegate, UIActionSheetDelegate>
 @property (strong, nonatomic) AVAudioPlayer *musicPlayer;
 @property (nonatomic) int pointsEarned;
 @property (nonatomic) int numberOfLives;
@@ -73,8 +77,12 @@
     //  prompt player if they want to try again or go to the score screen
     //  NSLog(@"You have died");
     
-    //  
+    [(GameView *)self.view stopGame];
     
+    //  Flash a view to the user asking them if they would like to play again or view the score screen
+    UIActionSheet *optionsActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Main Menu", @"Play Again", @"Score Screen", nil];
+    [optionsActionSheet showInView:self.view];
+    [optionsActionSheet setDelegate:self];
 }
 
 - (void)enemyDestroyed
@@ -106,6 +114,27 @@
 {
     // NSLog(@"You have destroyed an asteroid");
     
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0: {
+            WelcomeViewController *welcomeController = [WelcomeViewController new];
+            [self presentViewController:welcomeController animated:YES completion:nil];
+        }
+        case 1: {
+            SelectShipViewController *selectShipController = [SelectShipViewController new];
+            [self presentViewController:selectShipController animated:YES completion:nil];
+        }
+        case 2: {
+            ScoreViewController *scoreViewController = [ScoreViewController new];
+            [self presentViewController:scoreViewController animated:YES completion:nil];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

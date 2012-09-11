@@ -23,6 +23,7 @@
 {
     id <GameViewEventDelegate> delegate;
 }
+@property UILabel *pointsLabel;
 @property (retain) id delegate;
 - (id)initWithFrame:(CGRect)frame andShipType:(ShipType)shipType;
 - (void)startCollisionDetectorLoop;
@@ -31,4 +32,5 @@
 - (void)addEnemyShipOfType:(EnemyShipType)type;
 - (void)addChainOfEnemyShips;
 - (void)nextLevel:(GameLevel)level;
+- (void)stopGame;
 @end

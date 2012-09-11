@@ -14,9 +14,7 @@
 
 @interface GameView()
 {
-//    AVAudioPlayer *laserPlayer;
-//    NSMutableArray *allAsteroids;
-//    NSMutableArray *allLasers;
+    //  AVAudioPlayer *laserPlayer;
     NSTimer *collisionLoop;
     
 }
@@ -50,49 +48,49 @@
 }
 
 - (void)initObjects
-{
-    // Initialize UITapGesture
+{  
+    //  Initialize UITapGesture
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shootPlayerLaser:)];
     self.tap.numberOfTapsRequired = 2;
     
-    // Set handler for the tap gesture recognizer for the view
+    //  Set handler for the tap gesture recognizer for the view
     [self addGestureRecognizer:self.tap];
     
-    // Initialize the background
+    //  Initialize the background
     [self initInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"space.png"]];
     
-    // Add a UILabel for the Points
-    UILabel *pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, self.bounds.size.height - 15.0, 60.0, 15.0)];
-    pointsLabel.textColor = [UIColor redColor];
-    pointsLabel.backgroundColor = [UIColor clearColor];
-    pointsLabel.text = @"Points: ";
-    [self addSubview:pointsLabel];
+    //  Add a UILabel for the Points
+    self.pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, self.bounds.size.height - 15.0, 60.0, 15.0)];
+    self.pointsLabel.textColor = [UIColor redColor];
+    self.pointsLabel.backgroundColor = [UIColor clearColor];
+    self.pointsLabel.text = @"Points: ";
+    [self addSubview:self.pointsLabel];
     
-    // Initialize laser player
-//    NSString *music = [[NSBundle mainBundle] pathForResource:@"laser" ofType:@"mp4"];
-//    laserPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:music] error:NULL];
-//    [laserPlayer prepareToPlay];
+    //  Initialize laser player
+    //  NSString *music = [[NSBundle mainBundle] pathForResource:@"laser" ofType:@"mp4"];
+    //  laserPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:music] error:NULL];
+    //  [laserPlayer prepareToPlay];
     
-    // Initialize the ship
+    //  Initialize the ship
     [self initPlayerShip];
             
-    // Create allPlayerLasers Array
+    //  Create allPlayerLasers Array
     self.allPlayerLasers = [NSMutableArray new];
     
-    // Create allEnemyLasers Array
+    //  Create allEnemyLasers Array
     self.allEnemyLasers = [NSMutableArray new];
     
-    // Initialize all asteroids Array
+    //  Initialize all asteroids Array
     self.allAsteroids = [NSMutableArray new];
  
-    // Initialize all enemyShips Array
+    //  Initialize all enemyShips Array
     self.allEnemyShips = [NSMutableArray new];
     
-    // Add asteroids
+    //  Add asteroids
     [self addAsteroid];
     [self addAsteroid];
     
-    // Add enemy ship
+    //  Add enemy ship
     [self addEnemyShipOfType:Tie];
             
     [self setNeedsDisplay];
@@ -258,24 +256,24 @@
 
 - (void)shootPlayerLaser:(UIGestureRecognizer*) gesture
 {
-    // Play laser sound
-    //[laserPlayer play];
+    //  Play laser sound
+    //  [laserPlayer play];
 
-    // Get the ship's presentation layer's position (the ship might be in the middle of an animation)
-    // In order to get this presentation layer's position we have to TELL the Compiler that what we get back from the method "presentationLayer" is a CALayer, thus we CAST it to a CALayer*
+    //  Get the ship's presentation layer's position (the ship might be in the middle of an animation)
+    //  In order to get this presentation layer's position we have to TELL the Compiler that what we get back from the method "presentationLayer" is a CALayer, thus we CAST it to a CALayer*
     CGPoint laserOrigin = [(CALayer*)[self.ship presentationLayer] position];
    
-    // Create new laser object and give it a reference to the NSMutableArray that will hold it (so when the laser deletes itself from its superlayer it can also remove itself from this container)
+    //  Create new laser object and give it a reference to the NSMutableArray that will hold it (so when the laser deletes itself from its superlayer it can also remove itself from this container)
     LaserType laserType = player;
     LaserBlast *laserBlast = [[LaserBlast alloc] initWithPosition:laserOrigin targetPosition:CGPointMake(laserOrigin.x, -50) laserType:laserType AndLaserArrayContainer:self.allPlayerLasers];
     
-    // Add laser object to view's layer
+    //  Add laser object to view's layer
     [self.layer addSublayer:laserBlast];
 
-    // Add laser to GameView's allLaserBlasts Array
+    //  Add laser to GameView's allLaserBlasts Array
     [self.allPlayerLasers addObject:laserBlast];
     
-    // Call the laser's animation method.  Also note that the laserBlast object will also remove itself from its superLayer by means of an animation delegate callback method in itself.
+    //  Call the laser's animation method.  Also note that the laserBlast object will also remove itself from its superLayer by means of an animation delegate callback method in itself.
     [laserBlast animate];
 }
 
@@ -336,7 +334,7 @@
 {
     switch (level) {
         case second: {
-            [self initInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level2Background.png"]];
+            [self initInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"deathStarSurface.png"]];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Tie];
@@ -367,6 +365,23 @@
 - (void)updateView
 {
     [self setNeedsDisplay];
+}
+
+- (void)stopGame
+{
+    //  Stop the collision detection loop
+    [collisionLoop invalidate];
+    
+    //  Stop all animation
+    for (EnemyShip *enemy in self.allEnemyShips) {
+        [enemy removeAnimationForKey:@"movement"];
+        [enemy unsetAnimationDelegate];
+    }
+    
+    for (Asteroid *asteroid in self.allAsteroids) {
+        [asteroid removeAnimationForKey:@"movement"];
+        [asteroid unsetAnimationDelegate];
+    }
 }
 
 @end

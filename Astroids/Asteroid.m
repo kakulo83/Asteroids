@@ -67,7 +67,7 @@
     [self.animation setRemovedOnCompletion:YES];
     [self.animation setFillMode:kCAFillModeForwards];
     [self.animation setDelegate:self];
-    [self addAnimation:self.animation forKey:nil];
+    [self addAnimation:self.animation forKey:@"movement"];
 }
 
 - (CGPoint)newRandomEndPosition
