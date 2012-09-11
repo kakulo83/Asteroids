@@ -128,6 +128,11 @@
     [self addAnimation:enemyAnimation forKey:@"movement"];
 }
 
+- (void)animateDestruction
+{
+    
+}
+
 - (void)keepShipWithinView
 {
     double viewWidth = self.superlayer.bounds.size.width;

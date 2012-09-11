@@ -16,7 +16,7 @@
 
 @interface GameViewController () <GameViewEventDelegate, UIActionSheetDelegate>
 @property (strong, nonatomic) AVAudioPlayer *musicPlayer;
-@property (nonatomic) int pointsEarned;
+@property (nonatomic) int points;
 @property (nonatomic) int numberOfLives;
 @property (nonatomic) GameLevel level;
 @end
@@ -67,7 +67,7 @@
 
 - (void)initGameProperties
 {
-    self.pointsEarned = 0;
+    self.points = 0;
     self.numberOfLives = 3;
     self.level = first;
 }
@@ -87,16 +87,16 @@
 
 - (void)enemyDestroyed
 {
-    self.pointsEarned += 20;
+    self.points += 10;
     
-    if ((self.pointsEarned >= 50) && (self.level == first) ) {
+    if ((self.points >= 50) && (self.level == first) ) {
         //  NSLog(@"Entering second level");
         self.level = second;
         GameView *view = (GameView *) self.view;
         [view nextLevel:second];
     }
     // enough points for second level
-    else if ((self.pointsEarned >= 100) && (self.level == second)) {
+    else if ((self.points >= 100) && (self.level == second)) {
         //  NSLog(@"Entering third level");
         self.level = third;
         GameView *view = (GameView *) self.view;

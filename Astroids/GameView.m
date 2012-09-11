@@ -25,6 +25,8 @@
 @property (strong,nonatomic) NSMutableArray *allPlayerLasers;
 @property (strong,nonatomic) NSMutableArray *allEnemyLasers;
 @property (strong,nonatomic) NSMutableArray *allEnemyShips;
+@property int points;
+
 
 - (BOOL) isMovingLeft:(CGPoint)touchPoint;
 - (void)initInfiniteSpaceScrollingWithBackgroundImage:(UIImage*)backgroundImage;
@@ -49,6 +51,9 @@
 
 - (void)initObjects
 {  
+    //  Set pointsEarned
+    self.points = 0;
+    
     //  Initialize UITapGesture
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shootPlayerLaser:)];
     self.tap.numberOfTapsRequired = 2;
@@ -200,7 +205,12 @@
             for (EnemyShip *enemy in self.allEnemyShips) {
                 if (CGRectIntersectsRect([laser.presentationLayer frame], [enemy.presentationLayer frame]) ) {
                     //  NSLog(@"Player destroyed enemy ship");
-                   
+                    self.points += 10;
+                    NSString *baseString = @"POINTS ";
+                    NSString *pointsString = [NSString stringWithFormat:@"%d",self.points];
+                    self.pointsLabel.text = [baseString stringByAppendingString:pointsString];
+                    
+                    
                     //  Remove from the SuperLayer
                     [enemy removeFromSuperlayer];
                     [laser removeFromSuperlayer];
