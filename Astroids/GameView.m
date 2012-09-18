@@ -7,30 +7,49 @@
 //
 
 #import "GameView.h"
-#import <AVFoundation/AVFoundation.h>
 #import "Ship.h"
 #import "LaserBlast.h"
 #import "Asteroid.h"
+#import "HitPointSubView.h"
+#import "FlashMessageView.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface GameView()
-{
-    //  AVAudioPlayer *laserPlayer;
-    NSTimer *collisionLoop;
-    
-}
+
 @property (nonatomic) ShipType shipType;
 @property (strong,nonatomic) Ship *ship;
-@property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (strong,nonatomic) HitPointSubView *hpView;
+
+@property UILabel *pointsLabel;
+@property (strong,nonatomic) NSTimer *collisionLoop;
+@property (strong,nonatomic) AVAudioPlayer *laserPlayer;
+@property (strong,nonatomic) UITapGestureRecognizer *tap;
+@property (strong,nonatomic) CALayer *infiniteBackground;
 @property (strong,nonatomic) NSMutableArray *allAsteroids;
 @property (strong,nonatomic) NSMutableArray *allPlayerLasers;
 @property (strong,nonatomic) NSMutableArray *allEnemyLasers;
 @property (strong,nonatomic) NSMutableArray *allEnemyShips;
 
+
 - (BOOL) isMovingLeft:(CGPoint)touchPoint;
-- (void)initInfiniteSpaceScrollingWithBackgroundImage:(UIImage*)backgroundImage;
+- (void)setInfiniteSpaceScrollingWithBackgroundImage:(UIImage*)backgroundImage;
 @end
 
 @implementation GameView
+
+- (void)setPlayerScore:(int)playerScore
+{
+    _playerScore = playerScore;
+    self.pointsLabel.text = [NSString stringWithFormat:@"Score: %d",self.playerScore];
+}
+
+- (void)setPlayerHitPoints:(int)playerHitPoints
+{
+    _playerHitPoints = playerHitPoints;
+    self.hpView.playerHitPoints = _playerHitPoints;
+    [self.hpView updateView];
+    [self updateView];
+}
 
 - (id)initWithFrame:(CGRect)frame andShipType:(ShipType)shipType
 {
@@ -48,7 +67,7 @@
 }
 
 - (void)initObjects
-{  
+{
     //  Initialize UITapGesture
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shootPlayerLaser:)];
     self.tap.numberOfTapsRequired = 2;
@@ -56,24 +75,18 @@
     //  Set handler for the tap gesture recognizer for the view
     [self addGestureRecognizer:self.tap];
     
-    //  Initialize the background
-    [self initInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"space.png"]];
-    
-    //  Add a UILabel for the Points
-    self.pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, self.bounds.size.height - 15.0, 60.0, 15.0)];
-    self.pointsLabel.textColor = [UIColor redColor];
-    self.pointsLabel.backgroundColor = [UIColor clearColor];
-    self.pointsLabel.text = @"Points: ";
-    [self addSubview:self.pointsLabel];
+    //  Initialize the background Layer
+    self.infiniteBackground = [CALayer layer];
+    [self setInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level1Background.png"]];
     
     //  Initialize laser player
-    //  NSString *music = [[NSBundle mainBundle] pathForResource:@"laser" ofType:@"mp4"];
-    //  laserPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:music] error:NULL];
-    //  [laserPlayer prepareToPlay];
+//    NSString *music = [[NSBundle mainBundle] pathForResource:@"laser" ofType:@"mp4"];
+//    self.laserPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:music] error:NULL];
+//    [self.laserPlayer prepareToPlay];
     
-    //  Initialize the ship
-    [self initPlayerShip];
-            
+    //  Initialize the ship and stats
+    [self initPlayerShipAndStats];    
+    
     //  Create allPlayerLasers Array
     self.allPlayerLasers = [NSMutableArray new];
     
@@ -89,15 +102,47 @@
     //  Add asteroids
     [self addAsteroid];
     [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+    [self addAsteroid];
+           
     
     //  Add enemy ship
     [self addEnemyShipOfType:Tie];
-            
+    [self addEnemyShipOfType:Tie];
+    [self addEnemyShipOfType:Tie];
+    
+    //  Add the  HitPoint subview
+    self.hpView = [[HitPointSubView alloc] initWithFrame:CGRectMake(self.bounds.size.width - 30, self.bounds.size.height - 100, 7.5, 100) maxHP:self.playerHitPoints andPlayerHP:self.playerHitPoints];
+    [self addSubview:self.hpView];
+    [self bringSubviewToFront:self.hpView];
+    
+    //  Add a UILabel for the Points
+    self.pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, self.bounds.size.height - 15.0, 120.0, 15.0)];
+    self.pointsLabel.textColor = [UIColor redColor];
+    self.pointsLabel.backgroundColor = [UIColor clearColor];
+    self.pointsLabel.text = @"Score: ";
+    [self addSubview:self.pointsLabel];
+    
     [self setNeedsDisplay];
 }
 
-- (void)initPlayerShip
+- (void)initPlayerShipAndStats
 {
+    self.playerScore = 0;
+    self.playerHitPoints = 10;
+     
     CGPoint position = CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height - 35);
     
     switch (self.shipType) {
@@ -123,19 +168,18 @@
     [self.layer addSublayer:self.ship];
 }
 
-- (void)initInfiniteSpaceScrollingWithBackgroundImage:(UIImage*)backgroundImage
+- (void)setInfiniteSpaceScrollingWithBackgroundImage:(UIImage*)backgroundImage
 {
     UIImage *spaceImage = backgroundImage;
     UIColor *spacePattern = [UIColor colorWithPatternImage:spaceImage];
-    CALayer *space = [CALayer layer];
-    space.backgroundColor = spacePattern.CGColor;
+    self.infiniteBackground.backgroundColor = spacePattern.CGColor;
     
     // CALayer's coordinates put the origin at the lower left instead of the upper left, with y increasing up, i.e  flip the image over the x-axis
-    space.transform = CATransform3DMakeScale(1, -1, 1);
+    self.infiniteBackground.transform = CATransform3DMakeScale(1, -1, 1);
             
     CGSize viewSize = self.bounds.size;
-    space.frame = CGRectMake(0, 0, spaceImage.size.width, spaceImage.size.height + viewSize.height);
-    [self.layer addSublayer:space];
+    self.infiniteBackground.frame = CGRectMake(0, 0, spaceImage.size.width, spaceImage.size.height + viewSize.height);
+    [self.layer addSublayer:self.infiniteBackground];
     
     // Set the start and end conditions for the animation property that will change
     CGPoint startPoint = CGPointMake(viewSize.width/2.0,0.0); 
@@ -149,7 +193,7 @@
     animation.repeatCount = INT_MAX;
     animation.duration = 10.0;
 
-    [space addAnimation:animation forKey:@"position"];
+    [self.infiniteBackground addAnimation:animation forKey:@"position"];
 }
 
 - (BOOL)isMovingLeft:(CGPoint)touchPoint
@@ -162,27 +206,34 @@
     }
 }
 
-- (void)startCollisionDetectorLoop
+- (void)startCollisionDetectionLoop
 {
-    collisionLoop = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkForCollisions) userInfo:nil repeats:YES];
+    self.collisionLoop = [NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(checkForCollisions) userInfo:nil repeats:YES];
+}
+
+- (void)stopCollisionDetection
+{
+    [self.collisionLoop invalidate];
 }
 
 - (void)checkForCollisions
 {
-    //  Check for enemy laser / player collision
+    //  Check if enemy ship shot player with laser
     if ([self.allEnemyLasers count] != 0) {
         for (LaserBlast *enemyLaser in self.allEnemyLasers) {
-            if (CGRectIntersectsRect([self.ship.presentationLayer frame], [enemyLaser.presentationLayer frame]) ) {
+            //if (CGRectIntersectsRect([self.ship.presentationLayer frame], [enemyLaser.presentationLayer frame]) ) {
+            if (CGRectIntersectsRect([self.ship collisionRectangle], [enemyLaser.presentationLayer frame]) ) {
                 // Ship has been hit by enemy laser blast
-                [self.delegate playerDied];
+                [self.delegate playerHit];
             }
         }
     }
     
-    //  Check for asteroid / player collision
+    //  Check if player hit asteroid
     if ([self.allAsteroids count] != 0) {
         for (Asteroid *asteroid in self.allAsteroids) {
-            if (CGRectIntersectsRect([self.ship.presentationLayer frame], [asteroid.presentationLayer frame]) ) {
+            //if (CGRectIntersectsRect([self.ship.presentationLayer frame], [asteroid.presentationLayer frame]) ) {
+            if (CGRectIntersectsRect([self.ship collisionRectangle],[asteroid.presentationLayer frame]) ) {
                 // Ship has collided with an asteroid
                 
                 // NSLog(@"Ship collided with asteroid");
@@ -194,15 +245,17 @@
     NSMutableArray *lasersToBeRemoved    = [NSMutableArray new];
     NSMutableArray *enemyShipsToBeRemoved = [NSMutableArray new];
     
-    //  Check for player laser / enemy collision
+    
+    //  Check if player shot enemy ship with laser
     if ([self.allPlayerLasers count] != 0) {        
         for (LaserBlast *laser in self.allPlayerLasers) {
             for (EnemyShip *enemy in self.allEnemyShips) {
                 if (CGRectIntersectsRect([laser.presentationLayer frame], [enemy.presentationLayer frame]) ) {
-                    //  NSLog(@"Player destroyed enemy ship");
-                   
-                    //  Remove from the SuperLayer
-                    [enemy removeFromSuperlayer];
+                    //  Update points label
+                    self.playerScore += 5;
+                    
+                    [enemy destroyShip];
+
                     [laser removeFromSuperlayer];
                     
                     //  Add to the tobeRemoved arrays
@@ -210,7 +263,6 @@
                     [lasersToBeRemoved addObject:laser];
                     
                     // unset animation delegate for asteroid and laser (AVOID REFERENCE RETAIN CYCLE)
-                    [enemy unsetAnimationDelegate];
                     [laser unsetAnimationDelegate];
                 }
             }
@@ -224,6 +276,7 @@
         [self.delegate enemyDestroyed];
     }
      
+    
     //  Check for laser / asteroid collision
     NSMutableArray *asteroidsToBeRemoved = [NSMutableArray new];
      
@@ -231,8 +284,10 @@
         for (Asteroid *asteroid in self.allAsteroids) {
             if (CGRectIntersectsRect([laser.presentationLayer frame], [asteroid.presentationLayer frame]) ) {
 
+                [asteroid destroyAsteroid];
+                                
                 // Remove from the SuperLayer
-                [asteroid removeFromSuperlayer];
+                //[asteroid removeFromSuperlayer];
                 [laser removeFromSuperlayer];
               
                 // Add to the tobeRemoved arrays
@@ -240,7 +295,7 @@
                 [lasersToBeRemoved addObject:laser];
                                 
                 // unset animation delegate for asteroid and laser (AVOID REFERENCE RETAIN CYCLE)
-                [asteroid unsetAnimationDelegate];
+                //[asteroid unsetAnimationDelegate];
                 [laser unsetAnimationDelegate];
             }
         }
@@ -257,7 +312,7 @@
 - (void)shootPlayerLaser:(UIGestureRecognizer*) gesture
 {
     //  Play laser sound
-    //  [laserPlayer play];
+//    [self.laserPlayer play];
 
     //  Get the ship's presentation layer's position (the ship might be in the middle of an animation)
     //  In order to get this presentation layer's position we have to TELL the Compiler that what we get back from the method "presentationLayer" is a CALayer, thus we CAST it to a CALayer*
@@ -332,33 +387,54 @@
 
 - (void)nextLevel:(GameLevel)level
 {
+    [self.collisionLoop invalidate];
+
     switch (level) {
         case second: {
-            [self initInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"deathStarSurface.png"]];
+            //  Remove any remaining asteroids from level 1
+            for (Asteroid *asteroid in self.allAsteroids) {
+                [asteroid removeFromSuperlayer];
+            }
+            self.allAsteroids = nil;
+            
+            [self setInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level2Background.png"]];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Tie];
             [self addEnemyShipOfType:Tie];
+            
+            //  Flash the next level
+            FlashMessageView *levelUp = [[FlashMessageView alloc] initWithFrame:CGRectMake(50.0, 50.0, 200.0, 80.0) andTitle:@"LEVEL 2"];
+            [self addSubview:levelUp];
+            [self bringSubviewToFront:levelUp];
+            [levelUp scaleUp];
         }
             break;
         case third: {
-            [self initInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level3Background.png"]];
+                       
+            [self setInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level3Background.png"]];
             [self addEnemyShipOfType:Bomber];
             [self addEnemyShipOfType:Bomber];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Tie];
+            
+            //  Flash the next level
+            FlashMessageView *levelUp = [[FlashMessageView alloc] initWithFrame:CGRectMake(50.0, 50.0, 200.0, 80.0) andTitle:@"LEVEL 3"];
+            [self addSubview:levelUp];
+            [self bringSubviewToFront:levelUp];
+            [levelUp scaleUp];
         }
             break;
             
         default:
             break;
     }
-    
-    //  Add more ships thereby increasing the difficulty
-    [self addEnemyShipOfType:Interceptor];
-    //  Update the view to show the level change
 
+    [self bringSubviewToFront:self.hpView];
+    [self bringSubviewToFront:self.pointsLabel];
+    
+    [self startCollisionDetectionLoop];
     [self updateView];
 }
 
@@ -370,18 +446,26 @@
 - (void)stopGame
 {
     //  Stop the collision detection loop
-    [collisionLoop invalidate];
+    [self.collisionLoop invalidate];
+    
+    //  Remove tap gesture recognizer
+    self.tap = nil;
     
     //  Stop all animation
     for (EnemyShip *enemy in self.allEnemyShips) {
         [enemy removeAnimationForKey:@"movement"];
-        [enemy unsetAnimationDelegate];
+        //  [enemy unsetAnimationDelegate];
     }
     
-    for (Asteroid *asteroid in self.allAsteroids) {
-        [asteroid removeAnimationForKey:@"movement"];
-        [asteroid unsetAnimationDelegate];
-    }
+//    for (Asteroid *asteroid in self.allAsteroids) {
+//        [CATransaction begin];
+//        [CATransaction setDisableActions:YES];
+//        asteroid.position = [(CALayer*)asteroid.presentationLayer position];
+//        [CATransaction commit];
+//        
+//        [asteroid removeAnimationForKey:@"moveAndRotate"];
+//        [asteroid unsetAnimationDelegate];
+//    }
 }
 
 @end

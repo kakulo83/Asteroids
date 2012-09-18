@@ -11,4 +11,5 @@
 @interface Ship : CALayer
 @property int hitPoints;
 -(id) initWithPosition:(CGPoint)position andImageFile:(NSString*)file;
+- (CGRect)collisionRectangle;
 @end
