@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EnterNameViewController : UIViewController
-
+@interface EnterNameViewController : UIViewController 
+@property int playerScore;
 @end
