@@ -9,13 +9,16 @@
 #import "EnterNameViewController.h"
 #import "ScoreViewController.h"
 #import <Parse/Parse.h>
+#import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <CoreImage/CoreImage.h>
 
 @interface EnterNameViewController() <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     BOOL keyboardVisible;
     CGPoint offset;
 }
+@property (weak, nonatomic) IBOutlet UILabel *percentLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UIButton *selectImageButton;
@@ -24,6 +27,7 @@
 @end
 
 @implementation EnterNameViewController
+@synthesize percentLabel;
 @synthesize scrollview;
 @synthesize nameTextField;
 @synthesize selectImageButton;
@@ -47,15 +51,21 @@
 {
     [super viewWillAppear:animated];
     
+    self.selectImageButton.clipsToBounds = YES;
+    self.selectImageButton.contentEdgeInsets = UIEdgeInsetsMake(1, 10, 1, 10);
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (keyboardDidHide:)
                                                  name: UIKeyboardDidHideNotification object:nil];
     
-    // Setup content size
+    //  Setup content size
     scrollview.contentSize = CGSizeMake(320, 460);
     [self.nameTextField setDelegate:self];
     keyboardVisible = NO;
+    
+    //  Hide progress label
+    self.percentLabel.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -69,6 +79,7 @@
     [self setScrollview:nil];
     [self setNameTextField:nil];
     [self setNameTextField:nil];
+    [self setPercentLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -78,7 +89,9 @@
 {
     if (keyboardVisible)
         return;
+         
     //  Get the size of the keyboard
+ 
     NSDictionary *info = [notif userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGSize keyboardSize = [aValue CGRectValue].size;
@@ -104,6 +117,9 @@
 {
     if (!keyboardVisible)
         return;
+ 
+    self.selectImageButton.enabled = YES;
+    
     //  Reset the frame scroll view to its original value
     scrollview.frame = CGRectMake(0, 0, 320, 460);
     scrollview.contentOffset = offset;
@@ -112,12 +128,16 @@
 
 - (IBAction)addImage
 {
-    //    ScoreViewController *scoreViewController = [ScoreViewController new];
-    //    [self presentViewController:scoreViewController animated:YES completion:nil];
-    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    offset = scrollview.contentOffset;
     
-    // Set picker's source type
-    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+  
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    else {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
     
     // Set picker's media type
     imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeImage];
@@ -132,8 +152,11 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    self.playerImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    self.selectImageButton.imageView.image = self.playerImage;
+    UIImage *capturedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    self.playerImage = capturedImage;
+    
+    [self.selectImageButton setImage:self.playerImage forState:UIControlStateNormal];
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -156,26 +179,58 @@
 
 - (IBAction)submitPressed:(id)sender
 {
+    //  Show progress label
+    self.percentLabel.hidden = NO;
+    
     //  Push image and name to parse in the background
-    if ( (self.playerImage) && (self.playerName) ) {
+    if ( (self.playerImage) && ([self.playerName length] != 0) ) {
         // send name and iamge to parse in one object
 
-        NSString *photoName = [self.playerName stringByAppendingString:@".png"];
+        NSString *photoName = [self.playerName stringByAppendingString:@".jpeg"];
+
+        //  Create a graphics manipulation context from the captured image
+        UIGraphicsBeginImageContext(self.playerImage.size);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        //  Rotate the capturedImage 90 degrees clockwise
+        CGContextRotateCTM(context, M_PI/2.0);
+        [self.playerImage drawAtPoint:CGPointMake(0,0)];
+        UIGraphicsGetImageFromCurrentImageContext();
+        //  Release the context
+        UIGraphicsEndImageContext();
         
         // Save image data to parse
         UIImage *imageUpload = self.playerImage;
-        NSData *imageData = UIImagePNGRepresentation(imageUpload);
-        PFFile *file = [PFFile fileWithName:photoName data:imageData];
-        [file saveInBackground];
+        NSData *imageData = UIImageJPEGRepresentation(imageUpload, 1.0);
+        PFFile *parseImageFile = [PFFile fileWithName:photoName data:imageData];
+        [parseImageFile saveInBackground];
+        
+//        [parseImageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//            ScoreViewController *scoreController = [ScoreViewController new];
+//            [self presentModalViewController:scoreController animated:YES];
+//        } progressBlock:^(int percentDone) {
+//            NSString *percentText = @"%";
+//            NSString *percentNumber = [NSString stringWithFormat:@"%d",percentDone];
+//            percentText = [percentText stringByAppendingString:percentNumber];
+//            self.percentLabel.text = percentText;
+//        }];
+
+        
+        
         
         // Associate image data with another database item "UserPhotos"
         PFObject *userData = [PFObject objectWithClassName:@"PlayerData"];
         [userData setObject:self.playerName forKey:@"playerName"];
         [userData setObject:[NSNumber numberWithInt:self.playerScore ]forKey:@"playerScore"];
-        [userData setObject:file forKey:@"imageFile"];
+        [userData setObject:parseImageFile forKey:@"imageFile"];
+
+//        [userData saveInBackground];
+        
         [userData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
             ScoreViewController *scoreController = [ScoreViewController new];
             [self presentModalViewController:scoreController animated:YES];
+            
         }];
         
         [(UIButton*)sender setEnabled:NO];

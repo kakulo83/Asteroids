@@ -35,6 +35,7 @@
 		8A0DCA0E160967E500082446 /* EnterNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DCA0C1609665D00082446 /* EnterNameViewController.m */; };
 		8A1162D215FE94CB00447125 /* level2Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A1162D115FE94CB00447125 /* level2Background.png */; };
 		8A1162DD15FEC92700447125 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1162DC15FEC92700447125 /* MobileCoreServices.framework */; };
+		8A2854DD160BDAE600F3E3D3 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2854DC160BDAE600F3E3D3 /* CoreImage.framework */; };
 		8A36CDCC16092FAF00737207 /* propaganda.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A36CDCB16092FAF00737207 /* propaganda.png */; };
 		8A36CDCE1609336500737207 /* defaultPlayerImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A36CDCD1609336500737207 /* defaultPlayerImage.png */; };
 		8A3859FB15FB3CE90014A041 /* tieBomber.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3859FA15FB3CE90014A041 /* tieBomber.png */; };
@@ -53,7 +54,6 @@
 		8A385A2E15FC6EF70014A041 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A385A2D15FC6EF60014A041 /* GameViewController.xib */; };
 		8A385A3015FC6F9F0014A041 /* SelectShipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A385A2F15FC6F9E0014A041 /* SelectShipViewController.xib */; };
 		8A3E6AA9160050E400477479 /* FlashMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E6AA8160050E400477479 /* FlashMessageView.m */; };
-		8A3E6AAC16006EFB00477479 /* appLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3E6AAB16006EFB00477479 /* appLogo.png */; };
 		8A42A0C315E6C5E30078D033 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C215E6C5E30078D033 /* UIKit.framework */; };
 		8A42A0C515E6C5E30078D033 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C415E6C5E30078D033 /* Foundation.framework */; };
 		8A42A0C715E6C5E30078D033 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A42A0C615E6C5E30078D033 /* CoreGraphics.framework */; };
@@ -83,6 +83,7 @@
 		8A4F1A151609A2BF00AF2648 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4F1A141609A2BF00AF2648 /* StoreKit.framework */; };
 		8A4F1A171609A2C700AF2648 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4F1A161609A2C700AF2648 /* SystemConfiguration.framework */; };
 		8A58836615E75F0E004345AA /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A58836515E75F0E004345AA /* space.png */; };
+		8A6B7728160AD7D10031E086 /* ScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B7727160AD7D10031E086 /* ScoreViewController.xib */; };
 		8A6D6F6715FF09CF009FF5EF /* GameOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D6F6615FF09CF009FF5EF /* GameOverView.m */; };
 		8A77F07616074D2900510610 /* asteroidExplosion0.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A77F06B16074D2900510610 /* asteroidExplosion0.png */; };
 		8A77F07716074D2900510610 /* asteroidExplosion1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A77F06C16074D2900510610 /* asteroidExplosion1.png */; };
@@ -101,7 +102,6 @@
 		8AA7C94515E9510600061DC2 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AA7C94315E9510600061DC2 /* WelcomeViewController.xib */; };
 		8AA991D115E9746700143800 /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AA991D015E9746700143800 /* welcome.png */; };
 		8AA991EC15E9A6A600143800 /* ScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA991EA15E9A6A600143800 /* ScoreViewController.m */; };
-		8AA991ED15E9A6A600143800 /* ScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AA991EB15E9A6A600143800 /* ScoreViewController.xib */; };
 		8AA991F915E9B23900143800 /* blackButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AA991F815E9B23900143800 /* blackButtonBackground.png */; };
 		8AA991FD15E9B4EA00143800 /* SelectShipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA991FB15E9B4EA00143800 /* SelectShipViewController.m */; };
 		8AA9920015E9BB1600143800 /* selectBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AA991FF15E9BB1600143800 /* selectBackground.png */; };
@@ -144,6 +144,7 @@
 		8A0DCA0C1609665D00082446 /* EnterNameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnterNameViewController.m; sourceTree = "<group>"; };
 		8A1162D115FE94CB00447125 /* level2Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level2Background.png; sourceTree = "<group>"; };
 		8A1162DC15FEC92700447125 /* MobileCoreServices.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		8A2854DC160BDAE600F3E3D3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		8A36CDCB16092FAF00737207 /* propaganda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = propaganda.png; sourceTree = "<group>"; };
 		8A36CDCD1609336500737207 /* defaultPlayerImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultPlayerImage.png; sourceTree = "<group>"; };
 		8A3859FA15FB3CE90014A041 /* tieBomber.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tieBomber.png; sourceTree = "<group>"; };
@@ -201,6 +202,7 @@
 		8A4F1A141609A2BF00AF2648 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8A4F1A161609A2C700AF2648 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8A58836515E75F0E004345AA /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space.png; sourceTree = "<group>"; };
+		8A6B7727160AD7D10031E086 /* ScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreViewController.xib; sourceTree = "<group>"; };
 		8A6D6F6515FF09CF009FF5EF /* GameOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverView.h; sourceTree = "<group>"; };
 		8A6D6F6615FF09CF009FF5EF /* GameOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverView.m; sourceTree = "<group>"; };
 		8A77F06B16074D2900510610 /* asteroidExplosion0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asteroidExplosion0.png; sourceTree = "<group>"; };
@@ -223,7 +225,6 @@
 		8AA991D015E9746700143800 /* welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome.png; sourceTree = "<group>"; };
 		8AA991E915E9A6A600143800 /* ScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreViewController.h; sourceTree = "<group>"; };
 		8AA991EA15E9A6A600143800 /* ScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreViewController.m; sourceTree = "<group>"; };
-		8AA991EB15E9A6A600143800 /* ScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreViewController.xib; sourceTree = "<group>"; };
 		8AA991F815E9B23900143800 /* blackButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackButtonBackground.png; sourceTree = "<group>"; };
 		8AA991FA15E9B4EA00143800 /* SelectShipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectShipViewController.h; sourceTree = "<group>"; };
 		8AA991FB15E9B4EA00143800 /* SelectShipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectShipViewController.m; sourceTree = "<group>"; };
@@ -241,6 +242,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A2854DD160BDAE600F3E3D3 /* CoreImage.framework in Frameworks */,
 				8A4F1A171609A2C700AF2648 /* SystemConfiguration.framework in Frameworks */,
 				8A4F1A151609A2BF00AF2648 /* StoreKit.framework in Frameworks */,
 				8A4F1A131609A2B800AF2648 /* Security.framework in Frameworks */,
@@ -264,6 +266,7 @@
 		8A42A0B315E6C5E30078D033 = {
 			isa = PBXGroup;
 			children = (
+				8A2854DC160BDAE600F3E3D3 /* CoreImage.framework */,
 				8A3E6AAB16006EFB00477479 /* appLogo.png */,
 				8A42A0C815E6C5E30078D033 /* Astroids */,
 				8A42A0C115E6C5E30078D033 /* Frameworks */,
@@ -403,10 +406,10 @@
 		8A77F0821607A5D800510610 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				8A6B7727160AD7D10031E086 /* ScoreViewController.xib */,
 				8A0DCA0B1609665D00082446 /* EnterNameViewController.xib */,
 				8A385A2F15FC6F9E0014A041 /* SelectShipViewController.xib */,
 				8A385A2D15FC6EF60014A041 /* GameViewController.xib */,
-				8AA991EB15E9A6A600143800 /* ScoreViewController.xib */,
 				8AA7C94315E9510600061DC2 /* WelcomeViewController.xib */,
 			);
 			name = Xib;
@@ -537,7 +540,6 @@
 				8A58836615E75F0E004345AA /* space.png in Resources */,
 				8AA7C94515E9510600061DC2 /* WelcomeViewController.xib in Resources */,
 				8AA991D115E9746700143800 /* welcome.png in Resources */,
-				8AA991ED15E9A6A600143800 /* ScoreViewController.xib in Resources */,
 				8AA991F915E9B23900143800 /* blackButtonBackground.png in Resources */,
 				8AA9920015E9BB1600143800 /* selectBackground.png in Resources */,
 				8AA9920615E9C41300143800 /* milleniumFalcon.png in Resources */,
@@ -585,7 +587,6 @@
 				8A0A3B3216001AC5003DB2A8 /* explosion22.png in Resources */,
 				8A0A3B341600222B003DB2A8 /* level1Background.png in Resources */,
 				8A0A3B36160022A9003DB2A8 /* level3Background.png in Resources */,
-				8A3E6AAC16006EFB00477479 /* appLogo.png in Resources */,
 				8A77F07616074D2900510610 /* asteroidExplosion0.png in Resources */,
 				8A77F07716074D2900510610 /* asteroidExplosion1.png in Resources */,
 				8A77F07816074D2900510610 /* asteroidExplosion2.png in Resources */,
@@ -601,6 +602,7 @@
 				8A36CDCC16092FAF00737207 /* propaganda.png in Resources */,
 				8A36CDCE1609336500737207 /* defaultPlayerImage.png in Resources */,
 				8A4F1A021609933900AF2648 /* EnterNameViewController.xib in Resources */,
+				8A6B7728160AD7D10031E086 /* ScoreViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

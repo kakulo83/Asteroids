@@ -116,7 +116,9 @@
     [self addAsteroid];
     [self addAsteroid];
     [self addAsteroid];
-           
+    [self addAsteroid];
+    [self addAsteroid];
+     
     
     //  Add enemy ship
     [self addEnemyShipOfType:Tie];
