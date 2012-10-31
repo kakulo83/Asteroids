@@ -59,11 +59,18 @@
     [(GameView*) self.view startCollisionDetectionLoop];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.musicPlayer stop];
+    self.musicPlayer = nil;
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
 }
 
 - (void)initGameProperties
@@ -87,7 +94,7 @@
     
     //  After the destruction sequence present a view with button options to Play Again or View Score
 
-    GameOverView *gameOverView = [[GameOverView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width - 200.0) / 2.0, 160.0, 200.0, 200.0)];
+    GameOverView *gameOverView = [[GameOverView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width - 200.0) / 2.0, 160.0, 200.0, 250.0)];
     [gameOverView setBackgroundColor:[UIColor blackColor]];
     gameOverView.layer.borderColor = [[UIColor blueColor] CGColor];
     gameOverView.layer.borderWidth = 1.0f;
@@ -113,6 +120,14 @@
     [scoreScreenButton setTitle:@"View Scores" forState:UIControlStateNormal];
     [scoreScreenButton addTarget:self action:@selector(viewScoreScreen) forControlEvents:UIControlEventTouchDown];
     [gameOverView addSubview:scoreScreenButton];
+    
+    //  Create Main Menu Button
+    UIButton *mainMenuButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [mainMenuButton setFrame:CGRectMake((self.view.bounds.size.width - 200.0) / 2.0 + 25, 355.0, 150.0, 30.0)];
+    [mainMenuButton setBackgroundImage:[UIImage imageNamed:@"blackButtonBackground.png"] forState:UIControlStateNormal];
+    [mainMenuButton setTitle:@"Main Menu" forState:UIControlStateNormal];
+    [mainMenuButton addTarget:self action:@selector(mainMenu) forControlEvents:UIControlEventTouchDown];
+    [gameOverView addSubview:mainMenuButton];
     
     //  Add GameOver View to GameView
     [gameView addSubview:gameOverView];
@@ -172,6 +187,13 @@
     EnterNameViewController *enterNameController = [EnterNameViewController new];
     enterNameController.playerScore = self.playerScore;
     [self presentViewController:enterNameController animated:YES completion:nil];
+}
+
+
+- (void)mainMenu
+{
+    WelcomeViewController *welcomeController = [WelcomeViewController new];
+    [self presentViewController:welcomeController animated:YES completion:nil];
 }
 
 @end

@@ -200,40 +200,48 @@
         UIGraphicsEndImageContext();
         
         // Save image data to parse
+//        UIImage *imageUpload = self.playerImage;
+//        NSData *imageData = UIImageJPEGRepresentation(imageUpload, 1.0);
+//        PFFile *parseImageFile = [PFFile fileWithName:photoName data:imageData];
+//        [parseImageFile saveInBackground];
+//        
+//        // Associate image data with another database item "UserPhotos"
+//        PFObject *userData = [PFObject objectWithClassName:@"PlayerData"];
+//        [userData setObject:self.playerName forKey:@"playerName"];
+//        [userData setObject:[NSNumber numberWithInt:self.playerScore ]forKey:@"playerScore"];
+//        [userData setObject:parseImageFile forKey:@"imageFile"];
+//
+//        //  Save name, score, and image ref to Parse
+//        [userData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        
+//            ScoreViewController *scoreController = [ScoreViewController new];
+//            [self presentModalViewController:scoreController animated:YES];
+//            
+//        }];
+
         UIImage *imageUpload = self.playerImage;
         NSData *imageData = UIImageJPEGRepresentation(imageUpload, 1.0);
         PFFile *parseImageFile = [PFFile fileWithName:photoName data:imageData];
-        [parseImageFile saveInBackground];
-        
-//        [parseImageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//            ScoreViewController *scoreController = [ScoreViewController new];
-//            [self presentModalViewController:scoreController animated:YES];
-//        } progressBlock:^(int percentDone) {
-//            NSString *percentText = @"%";
-//            NSString *percentNumber = [NSString stringWithFormat:@"%d",percentDone];
-//            percentText = [percentText stringByAppendingString:percentNumber];
-//            self.percentLabel.text = percentText;
-//        }];
 
-        
-        
-        
-        // Associate image data with another database item "UserPhotos"
-        PFObject *userData = [PFObject objectWithClassName:@"PlayerData"];
-        [userData setObject:self.playerName forKey:@"playerName"];
-        [userData setObject:[NSNumber numberWithInt:self.playerScore ]forKey:@"playerScore"];
-        [userData setObject:parseImageFile forKey:@"imageFile"];
-
-//        [userData saveInBackground];
-        
-        [userData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        
-            ScoreViewController *scoreController = [ScoreViewController new];
-            [self presentModalViewController:scoreController animated:YES];
+        //  Save player image
+        [parseImageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            PFObject *userData = [PFObject objectWithClassName:@"PlayerData"];
+            [userData setObject:self.playerName forKey:@"playerName"];
+            [userData setObject:[NSNumber numberWithInt:self.playerScore ]forKey:@"playerScore"];
+            [userData setObject:parseImageFile forKey:@"imageFile"];
             
+            //  Save name, score, and image relational pointer to Parse
+            [userData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                ScoreViewController *scoreController = [ScoreViewController new];
+                [self presentModalViewController:scoreController animated:YES];
+                
+            }];
+        } progressBlock:^(int percentDone) {
+            NSString *percentText = @"%";
+            NSString *percentNumber = [NSString stringWithFormat:@"%d",percentDone];
+            percentText = [percentText stringByAppendingString:percentNumber];
+            self.percentLabel.text = percentText;
         }];
-        
-        [(UIButton*)sender setEnabled:NO];
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""

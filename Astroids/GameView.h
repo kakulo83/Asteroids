@@ -25,7 +25,7 @@
     id <GameViewEventDelegate> delegate;
 }
 
-@property (retain) id delegate;  // GameViewController is the delegate for GameViewEventDelegate protocol
+@property (nonatomic) id delegate;  // GameViewController is the delegate for GameViewEventDelegate protocol
 @property (nonatomic) int playerScore;
 @property (nonatomic) int playerHitPoints;
 

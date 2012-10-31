@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 Robert Carter. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "WelcomeViewController.h"
 #import "SelectShipViewController.h"
 #import "ScoreViewController.h"
 
 @interface WelcomeViewController ()
-
+@property (strong, nonatomic) AVAudioPlayer *musicPlayer;
 @end
 
 @implementation WelcomeViewController
@@ -21,6 +22,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+//        NSString *music = [[NSBundle mainBundle] pathForResource:@"intro" ofType:@"mp3"];
+//        self.musicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:music] error:NULL];
+//        [self.musicPlayer play];
     }
     return self;
 }
@@ -34,7 +38,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     // Hide the navigation controller's top bar
-    [self.navigationController setNavigationBarHidden:YES];
+//    [self.navigationController setNavigationBarHidden:YES];
+//    [self.musicPlayer stop];
+//    self.musicPlayer = nil;
 }
 
 - (void)viewDidLoad

@@ -78,10 +78,11 @@
     //  Initialize the background Layer
     self.infiniteBackground = [CALayer layer];
     [self setInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level1Background.png"]];
-    
+      
     //  Initialize laser player
-//    NSString *music = [[NSBundle mainBundle] pathForResource:@"laser" ofType:@"mp4"];
-//    self.laserPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:music] error:NULL];
+//    NSString *laser = [[NSBundle mainBundle] pathForResource:@"laser" ofType:@"mp4"];
+//    self.laserPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:laser] error:NULL];
+//    self.laserPlayer.volume = 0.25;
 //    [self.laserPlayer prepareToPlay];
     
     //  Initialize the ship and stats
@@ -314,7 +315,7 @@
 - (void)shootPlayerLaser:(UIGestureRecognizer*) gesture
 {
     //  Play laser sound
-//    [self.laserPlayer play];
+    //[self.laserPlayer play];
 
     //  Get the ship's presentation layer's position (the ship might be in the middle of an animation)
     //  In order to get this presentation layer's position we have to TELL the Compiler that what we get back from the method "presentationLayer" is a CALayer, thus we CAST it to a CALayer*
@@ -399,7 +400,7 @@
             }
             self.allAsteroids = nil;
             
-            [self setInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level2Background.png"]];
+            [self setInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level3Background.png"]];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Tie];
@@ -414,9 +415,12 @@
             break;
         case third: {
                        
-            [self setInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level3Background.png"]];
+            [self setInfiniteSpaceScrollingWithBackgroundImage:[UIImage imageNamed:@"level2Background.png"]];
             [self addEnemyShipOfType:Bomber];
             [self addEnemyShipOfType:Bomber];
+            [self addEnemyShipOfType:Bomber];
+            [self addEnemyShipOfType:Bomber];
+            [self addEnemyShipOfType:Tie];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Interceptor];
             [self addEnemyShipOfType:Tie];
