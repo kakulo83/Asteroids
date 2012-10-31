@@ -13,7 +13,9 @@
 
 }
 @property CGPoint endPosition;
-@property CAAnimationGroup *animation;
+@property (strong, nonatomic) CAAnimationGroup *animation;
+@property (strong, nonatomic) CAKeyframeAnimation *destructionAnimation;
+@property (strong, nonatomic) NSMutableArray *destructionImages;
 @end
 
 @implementation Asteroid
@@ -22,22 +24,43 @@
 {
     self = [super init];
     
-    if (self) {
-        self.bounds = CGRectMake(0.0, 0.0, 70.0, 70.0);
-        self.position = position;
-        self.endPosition = endPosition;
-        self.zPosition = 2000;
-        NSString *fileName = [NSString stringWithFormat:@"asteroid.png"];
-        UIImage *shipImage = [UIImage imageNamed:fileName];
-        self.contents = (__bridge id)([shipImage CGImage]);
-    }
+    if (!self)
+        return nil;
+    
+    CGFloat dimension = 15 + arc4random() % (int)50;
+    self.bounds = CGRectMake(0.0, 0.0, dimension, dimension);
+    self.position = position;
+    self.endPosition = endPosition;
+    self.zPosition = 2000;
+    NSString *fileName = [NSString stringWithFormat:@"asteroid.png"];
+    UIImage *shipImage = [UIImage imageNamed:fileName];
+    self.contents = (__bridge id)([shipImage CGImage]);
+    [self createDestructionImageArray];
+
     return self;
+}
+
+- (void)createDestructionImageArray
+{
+    NSMutableArray *destructionImages = [NSMutableArray new];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion0.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion1.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion2.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion3.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion4.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion5.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion6.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion7.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion8.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion9.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"asteroidExplosion10.png"] CGImage]];
+    self.destructionImages = destructionImages;
 }
 
 - (void)animate
 {
     CGFloat x = arc4random() % (int)self.superlayer.bounds.size.width;
-    CGFloat y = -10.0;
+    CGFloat y = -30.0;
         
     self.position = CGPointMake(x,y);
     self.endPosition = [self newRandomEndPosition];
@@ -60,14 +83,29 @@
         
     [rotate setToValue:[NSNumber numberWithFloat:M_PI * 2.0 * rotationSign]];
  
+    double animationDuration = 2 + arc4random() % (int)12;
+    
     //  Combine rotate and translate animation into one
     self.animation = [CAAnimationGroup animation];
     [self.animation setAnimations:[NSArray arrayWithObjects:translate, rotate , nil]];
-    [self.animation setDuration:12.0];
+    [self.animation setDuration:animationDuration];
     [self.animation setRemovedOnCompletion:YES];
     [self.animation setFillMode:kCAFillModeForwards];
     [self.animation setDelegate:self];
-    [self addAnimation:self.animation forKey:@"movement"];
+    [self.animation setValue:@"moveAndRotate" forKey:@"name"];
+    [self addAnimation:self.animation forKey:@"moveAndRotate"];
+}
+
+- (void)animateDestruction
+{
+    self.destructionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
+    [self.destructionAnimation setCalculationMode:kCAAnimationDiscrete];
+    [self.destructionAnimation setDelegate:self];
+    [self.destructionAnimation setDuration:1.0f];
+    [self.destructionAnimation setRepeatCount:0];
+    [self.destructionAnimation setValues:self.destructionImages];
+    [self.destructionAnimation setValue:@"destruction" forKey:@"name"];
+    [self addAnimation:self.destructionAnimation forKey:@"destruction"];
 }
 
 - (CGPoint)newRandomEndPosition
@@ -79,11 +117,39 @@
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
 {
-    //  When the asteroid is removed from the superlayer (view) animationDidStop is called
     if (flag == NO)
         return;
+    
+    if ([[theAnimation valueForKey:@"name"] isEqual:@"moveAndRotate"] && flag) {
+        [self animate];
+    }
+    else {
+        [self.destructionAnimation setDelegate:nil];
+        [self removeFromSuperlayer];
+    }
+}
 
-    [self animate];
+- (void)destroyAsteroid
+{
+    //  set the current Model position of the asteroid to the presentation position
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.position = [self.presentationLayer position];
+    [CATransaction commit];
+    
+    //  grab the presentationLayer's current angle of rotation
+    CGFloat rotationAngle = [[self.presentationLayer valueForKeyPath:@"transform.rotation"] floatValue];
+ 
+    //  stop the current animation
+    [self removeAnimationForKey:@"moveAndRotate"];
+    
+    //  set the current Model rotation to the value of the presentation rotation
+    self.transform = CATransform3DMakeRotation(rotationAngle, 0.0, 0.0, 1.0);
+    
+    //  animate the destruction sequence
+    [self animateDestruction];
+    
+    self.contents = [self.destructionImages lastObject];
 }
 
 - (void)unsetAnimationDelegate

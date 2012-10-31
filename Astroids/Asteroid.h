@@ -11,5 +11,7 @@
 @interface Asteroid : CALayer
 - (id)initWithPosition:(CGPoint)position andEndPosition:(CGPoint)endPosition;
 - (void)animate;
+- (void)animateDestruction;
+- (void)destroyAsteroid;
 - (void)unsetAnimationDelegate;
 @end

@@ -6,17 +6,20 @@
 //  Copyright (c) 2012 Robert Carter. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "GameViewController.h"
 #import "WelcomeViewController.h"
 #import "SelectShipViewController.h"
+#import "EnterNameViewController.h"
 #import "ScoreViewController.h"
 #import "GameView.h"
-#import <AVFoundation/AVFoundation.h>
 #import "GameOverView.h"
+#import "FlashMessageView.h"
 
 @interface GameViewController () <GameViewEventDelegate, UIActionSheetDelegate>
 @property (strong, nonatomic) AVAudioPlayer *musicPlayer;
 @property (nonatomic) int points;
+@property (nonatomic) int playerScore;
 @property (nonatomic) int numberOfLives;
 @property (nonatomic) GameLevel level;
 @end
@@ -50,10 +53,17 @@
 //    [self.musicPlayer play];
 }
 
+//  Starts the collision detection
 - (void)viewDidAppear:(BOOL)animated
 {
     //  Cast the view to a GameView object first then star the continuous collision detection for both ship/asteroid and asteroid/laser
-    [(GameView*) self.view startCollisionDetectorLoop];
+    [(GameView*) self.view startCollisionDetectionLoop];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.musicPlayer stop];
+    self.musicPlayer = nil;
 }
 
 - (void)viewDidUnload
@@ -61,28 +71,80 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
 }
-
-/* *************************************  Game View delegate methods *********************************** */
 
 - (void)initGameProperties
 {
     self.points = 0;
+    self.playerScore = 0;
     self.numberOfLives = 3;
     self.level = first;
 }
 
+/* *************************************  Game View delegate methods *********************************** */
+
 - (void)playerDied
 {
-    //  prompt player if they want to try again or go to the score screen
-    //  NSLog(@"You have died");
+    //  Stop the movement of the enemy ships
+    GameView *gameView = (GameView *)self.view;
+    [gameView stopGame];
+
+    //  Star the player ship destruction sequence
+
     
-    [(GameView *)self.view stopGame];
     
-    //  Flash a view to the user asking them if they would like to play again or view the score screen
-    UIActionSheet *optionsActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Main Menu", @"Play Again", @"Score Screen", nil];
-    [optionsActionSheet showInView:self.view];
-    [optionsActionSheet setDelegate:self];
+    //  After the destruction sequence present a view with button options to Play Again or View Score
+
+    GameOverView *gameOverView = [[GameOverView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width - 200.0) / 2.0, 160.0, 200.0, 250.0)];
+    [gameOverView setBackgroundColor:[UIColor blackColor]];
+    gameOverView.layer.borderColor = [[UIColor blueColor] CGColor];
+    gameOverView.layer.borderWidth = 1.0f;
+    [[gameOverView layer] setZPosition:3000.0];
+
+    //  Create DarthVader disapproves image
+    UIImageView *vaderImage = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width - 200.0) / 2.0 + 50, 170.0, 100.0, 100.0)];
+    [vaderImage setImage:[UIImage imageNamed:@"gameOver.png"]];
+    [gameOverView addSubview:vaderImage];
+    
+    //  Create Play Again Button
+    UIButton *playAgainButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [playAgainButton setFrame:CGRectMake((self.view.bounds.size.width - 200.0) / 2.0 + 25, 275.0, 150.0, 30.0)];
+    [playAgainButton setBackgroundImage:[UIImage imageNamed:@"blackButtonBackground.png"] forState:UIControlStateNormal];
+    [playAgainButton setTitle:@"Play Again" forState:UIControlStateNormal];
+    [playAgainButton addTarget:self action:@selector(playAgain) forControlEvents:UIControlEventTouchDown];
+    [gameOverView addSubview:playAgainButton];
+
+    //  Create Score Button
+    UIButton *scoreScreenButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [scoreScreenButton setFrame:CGRectMake((self.view.bounds.size.width - 200.0) / 2.0 + 25, 315.0, 150.0, 30.0)];
+    [scoreScreenButton setBackgroundImage:[UIImage imageNamed:@"blackButtonBackground.png"] forState:UIControlStateNormal];
+    [scoreScreenButton setTitle:@"View Scores" forState:UIControlStateNormal];
+    [scoreScreenButton addTarget:self action:@selector(viewScoreScreen) forControlEvents:UIControlEventTouchDown];
+    [gameOverView addSubview:scoreScreenButton];
+    
+    //  Create Main Menu Button
+    UIButton *mainMenuButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [mainMenuButton setFrame:CGRectMake((self.view.bounds.size.width - 200.0) / 2.0 + 25, 355.0, 150.0, 30.0)];
+    [mainMenuButton setBackgroundImage:[UIImage imageNamed:@"blackButtonBackground.png"] forState:UIControlStateNormal];
+    [mainMenuButton setTitle:@"Main Menu" forState:UIControlStateNormal];
+    [mainMenuButton addTarget:self action:@selector(mainMenu) forControlEvents:UIControlEventTouchDown];
+    [gameOverView addSubview:mainMenuButton];
+    
+    //  Add GameOver View to GameView
+    [gameView addSubview:gameOverView];
+    [gameView bringSubviewToFront:gameOverView];
+}
+
+- (void)playerHit
+{
+    GameView *view = (GameView *) self.view;
+            
+    view.playerHitPoints -= 1;
+    
+    if (view.playerHitPoints == 0) {
+        [self playerDied];
+    }
 }
 
 - (void)enemyDestroyed
@@ -90,12 +152,17 @@
     self.points += 10;
     
     if ((self.points >= 50) && (self.level == first) ) {
-        //  NSLog(@"Entering second level");
-        self.level = second;
-        GameView *view = (GameView *) self.view;
-        [view nextLevel:second];
+        self.playerScore += 5;
+
+        if ((self.playerScore >= 25) && (self.level == first) ) {
+            //  NSLog(@"Entering second level");
+            self.level = second;
+            GameView *view = (GameView *) self.view;
+            [view nextLevel:second];
+        }
     }
     // enough points for second level
+
     else if ((self.points >= 100) && (self.level == second)) {
         //  NSLog(@"Entering third level");
         self.level = third;
@@ -113,28 +180,27 @@
 - (void)asteroidDestroyed
 {
     // NSLog(@"You have destroyed an asteroid");
-    
+    [(GameView *)self.view addAsteroid];
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)playAgain
 {
-    switch (buttonIndex) {
-        case 0: {
-            WelcomeViewController *welcomeController = [WelcomeViewController new];
-            [self presentViewController:welcomeController animated:YES completion:nil];
-        }
-        case 1: {
-            SelectShipViewController *selectShipController = [SelectShipViewController new];
-            [self presentViewController:selectShipController animated:YES completion:nil];
-        }
-        case 2: {
-            ScoreViewController *scoreViewController = [ScoreViewController new];
-            [self presentViewController:scoreViewController animated:YES completion:nil];
-        }
-            break;
-        default:
-            break;
-    }
+    SelectShipViewController *selectShipController = [SelectShipViewController new];
+    [self presentViewController:selectShipController animated:YES completion:nil];
+}
+
+- (void)viewScoreScreen
+{
+    EnterNameViewController *enterNameController = [EnterNameViewController new];
+    enterNameController.playerScore = self.playerScore;
+    [self presentViewController:enterNameController animated:YES completion:nil];
+}
+
+
+- (void)mainMenu
+{
+    WelcomeViewController *welcomeController = [WelcomeViewController new];
+    [self presentViewController:welcomeController animated:YES completion:nil];
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "WelcomeViewController.h"
 #import "GameViewController.h"
+#import <Parse/Parse.h>
 
 @implementation AppDelegate
 
@@ -17,15 +18,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
+    //  Add Parse credentials
+    [Parse setApplicationId:@"h2P1qXN8Qrs9YGhIriFLhf2xFIDFayAOrckx9knp"
+                  clientKey:@"a9UrIWUoyDcMIjpq4GgAoJE5F143XDRDbtKKy3MW"];
+    
     //  Hide the status bar at the top of all view
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     // Create the WelcomeViewController
     WelcomeViewController *welcomeController = [WelcomeViewController new];
     self.window.rootViewController = welcomeController;
-    
-//    GameViewController *gameController = [GameViewController new];
-//    self.window.rootViewController = gameController;
         
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

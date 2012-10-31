@@ -14,8 +14,9 @@
 @property Ship *playerShip;
 @property (weak, nonatomic) NSMutableArray *allEnemyLasers;
 @property CGPoint newPosition;
-@property CAAnimationGroup *animationGroup;
-
+@property CABasicAnimation *movementAnimation;
+@property CAKeyframeAnimation *destructionAnimation;
+@property NSMutableArray *destructionImages;
 @end
 
 @implementation EnemyShip
@@ -29,6 +30,8 @@
     
     self.playerShip = playerShip;
     self.allEnemyLasers = allEnemyLasers;
+    self.isDestroyed = NO;
+    [self createDestructionImageArray];
 
     //  Set the content image depending on the enemy ship type
     UIImage *enemyShipImage;
@@ -56,81 +59,76 @@
     self.position = position;
     self.zPosition = 1000;
     self.contents = (__bridge id)([enemyShipImage CGImage]);
-
+    
     return self;
 }
 
-//- (NSArray *)createAnimationPathValues
-//{
-//    NSMutableArray *animationPathValues = [NSMutableArray new];
-//    
-//    //  Create a new end-point within the screen
-//    CGFloat endPointX = arc4random() % (int)self.superlayer.bounds.size.width;
-//    CGFloat endPointY = arc4random() % (int)self.superlayer.bounds.size.height;
-//
-//    if ([self.presentationLayer position].x < endPointX) {
-//        for (float x = [self.presentationLayer position].x; x < endPointX; x++ ) {
-//            
-//        }
-//    }
-//    
-//    //  first leg of animation
-//    double (^leg1)(double x) = ^double(double x) {
-//        return x;
-//    };
-//    
-//    for (float x = self.position.x; x < self.position.x + 150; x++) {
-//        CGPoint point = CGPointMake(x, leg1(x) + self.position.y);
-//        [animationPathValues addObject:[NSValue valueWithCGPoint:point]];
-//    }
-//    
-//    CGPoint transitionPoint1 = [[animationPathValues lastObject] CGPointValue];
-//    double constant2 = transitionPoint1.y + transitionPoint1.x;
-//        
-//    //  second leg of animation
-//    double (^leg2)(double x) = ^double(double x) {
-//        return (constant2 - x);
-//    };
-//
-//    for (float x = transitionPoint1.x; x > 0; x--) {
-//        CGPoint point = CGPointMake(x, leg2(x));
-//        [animationPathValues addObject:[NSValue valueWithCGPoint:point]];
-//    }
-//    return animationPathValues;
-//}
+- (void)createDestructionImageArray
+{
+    NSMutableArray *destructionImages = [NSMutableArray new];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion0.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion1.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion2.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion3.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion4.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion5.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion6.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion7.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion8.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion9.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion10.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion11.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion12.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion13.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion14.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion15.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion16.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion17.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion18.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion19.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion20.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion21.png"] CGImage]];
+    [destructionImages addObject:(id)[[UIImage imageNamed:@"explosion22.png"] CGImage]];
+    
+    self.destructionImages = destructionImages;
+}
 
 - (void)animate
 {
-    //  NSArray *animationPathValues = [self createAnimationPathValues];
-   
-//    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-//    animation.values = [NSArray arrayWithObject:[NSValue valueWithCGPoint:newEndPosition]];
-//
-//    self.animationGroup = [CAAnimationGroup animation];
-//    self.animationGroup.delegate = self;
-//    self.animationGroup.animations = [NSArray arrayWithObject:animation];
-//    self.animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-//    self.animationGroup.duration = 10.0;
-//    [self addAnimation:self.animationGroup forKey:@"animateMotion"];
-
     CGFloat newX = arc4random() % (int)self.superlayer.bounds.size.width;
     CGFloat newY = arc4random() % (int)self.superlayer.bounds.size.height;
-    CGPoint newEndPosition = CGPointMake(newX, newY);
+    CGPoint newRandomPosition = CGPointMake(newX, newY);
     
-    self.newPosition = newEndPosition;
+    self.newPosition = newRandomPosition;
     
-    CABasicAnimation *enemyAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-    enemyAnimation.delegate = self;
-    enemyAnimation.duration = 5.0;
-    enemyAnimation.repeatCount = 0;
-    enemyAnimation.fromValue = [NSValue valueWithCGPoint:self.position];
-    enemyAnimation.toValue = [NSValue valueWithCGPoint:newEndPosition];
-    [self addAnimation:enemyAnimation forKey:@"movement"];
+    self.movementAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+    self.movementAnimation.delegate = self;
+    self.movementAnimation.duration = 5.0;
+    self.movementAnimation.repeatCount = 0;
+    self.movementAnimation.fromValue = [NSValue valueWithCGPoint:self.position];
+    self.movementAnimation.toValue = [NSValue valueWithCGPoint:self.newPosition];
+    [self.movementAnimation setValue:@"movement" forKey:@"position"];
+    [self addAnimation:self.movementAnimation forKey:@"movement"];
+
+    //  Update the position
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];      // Turn off implicit animation
+    self.position = self.newPosition;
+    [CATransaction commit];
 }
 
 - (void)animateDestruction
 {
+    //  NSLog(@"Animating enemy ship destruction");
     
+    self.destructionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
+    [self.destructionAnimation setCalculationMode:kCAAnimationDiscrete];
+
+    [self.destructionAnimation setDelegate:self];
+    [self.destructionAnimation setDuration:2.0f];
+    [self.destructionAnimation setRepeatCount:0];
+    [self.destructionAnimation setValues:self.destructionImages];
+    [self addAnimation:self.destructionAnimation forKey:@"destruction"];
 }
 
 - (void)keepShipWithinView
@@ -145,20 +143,44 @@
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
 {
-    if (flag == NO)
+    //  AnimationDidStop is only interrupted when the ship has been destroyed
+    if (flag == NO) {
         return;
+    }
     
-    //  Update the position
-    self.position = self.newPosition;
-
-    [self attack];
-    [self animate];
+    if ([[theAnimation valueForKey:@"position"] isEqual:@"movement"] && flag) {
+        [self attack];
+        [self animate];
+    }
+    else {
+        self.destructionAnimation.delegate = nil;
+        [self removeFromSuperlayer];
+    }
 }
 
-- (void)unsetAnimationDelegate
+- (void)destroyShip
 {
-    self.animationGroup.delegate = nil;
+    //  set the current Model position of the enemy ship to the presentation position
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.position = [self.presentationLayer position];
+    [CATransaction commit];
+    
+    //  stop the current animation
+    [self removeAnimationForKey:@"movement"];
+        
+    //  animate the destruction sequence
+    [self animateDestruction];
+    
+    self.contents = [self.destructionImages lastObject];
 }
+
+//- (void)unsetAnimationDelegate
+//{
+//    NSLog(@"Removing enemy ship's delegate");
+//    self.movementAnimation.delegate = nil;
+//    self.destructionAnimation.delegate = nil;
+//}
 
 - (void)attack
 {

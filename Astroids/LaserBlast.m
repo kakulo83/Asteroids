@@ -64,7 +64,7 @@
 - (void)animate
 {
     //  Animate a player's laserBlast
-    if (self.laserType == 0) {
+    if (self.laserType == player) {
         // Player's laser can only go straight up, thus its destination x coordinate is the same
         CGPoint laserEndPoint = CGPointMake(self.position.x, -50);
         self.animation = [CABasicAnimation animationWithKeyPath:@"position"];
@@ -75,6 +75,11 @@
         self.animation.duration = 0.75;
         self.animation.delegate = self;
         [self addAnimation:self.animation forKey:@"position"];
+        
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        self.position = laserEndPoint;
+        [CATransaction commit];
     }
     //  Animate an enemy laserBlast
     else {
@@ -94,6 +99,10 @@
         self.animation.delegate = self;
         [self addAnimation:self.animation forKey:@"position"];
 
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];      // Turn off implicit animation
+        self.position = self.targetPosition;
+        [CATransaction commit];
     }
 }
 
@@ -102,6 +111,7 @@
     if (flag == NO) {
         return;
     }
+    
     [self removeFromSuperlayer];
     [self removeFromLaserArrayContainer];
 }

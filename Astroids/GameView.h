@@ -14,6 +14,7 @@
 // such as when the player dies, when the player has destroyed enough enemies/gained enough points to advance to the next level, etc.
 @protocol GameViewEventDelegate <NSObject>
 @required
+- (void)playerHit;
 - (void)playerDied;
 - (void)enemyDestroyed;
 - (void)asteroidDestroyed;
@@ -23,14 +24,18 @@
 {
     id <GameViewEventDelegate> delegate;
 }
-@property UILabel *pointsLabel;
-@property (retain) id delegate;
+
+@property (nonatomic) id delegate;  // GameViewController is the delegate for GameViewEventDelegate protocol
+@property (nonatomic) int playerScore;
+@property (nonatomic) int playerHitPoints;
+
 - (id)initWithFrame:(CGRect)frame andShipType:(ShipType)shipType;
-- (void)startCollisionDetectorLoop;
+- (void)startCollisionDetectionLoop;
 - (void)updateView;
 - (void)addAsteroid;
 - (void)addEnemyShipOfType:(EnemyShipType)type;
 - (void)addChainOfEnemyShips;
 - (void)nextLevel:(GameLevel)level;
+- (void)stopCollisionDetection;
 - (void)stopGame;
 @end

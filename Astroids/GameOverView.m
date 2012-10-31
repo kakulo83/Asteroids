@@ -14,12 +14,22 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        UIImage *gameOverImage = [UIImage imageNamed:@"GameOver.png"];
-        self.layer.contents = (__bridge id)([gameOverImage CGImage]);
-    }
+    if (!self)
+        return nil;
+    
+    // Initialization code
+//    UIImage *gameOverImage = [UIImage imageNamed:@"gameOver.png"];
+//    self.layer.contents = (__bridge id)([gameOverImage CGImage]);
+    self.backgroundColor = [UIColor grayColor];
+    self.bounds = frame;
+    
     return self;
+}
+
+- (void)animate
+{
+    // Use a CAAnimation to change the view's opacity from 0 to 1.0 over 1 second
+    
 }
 
 /*
